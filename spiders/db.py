@@ -17,6 +17,7 @@ class Track(db.Document):
     def __init__(self, *args, **kwargs):
         super(Track, self).__init__(*args, **kwargs)
 
+    vol = db.IntField(required=True)
     name = db.StringField(required=True)
     artist = db.StringField(required=True)
     album = db.StringField(required=True)
@@ -57,9 +58,10 @@ def add_vol(title, vol, cover, description, date, length, tag):
 
 
 def add_track(vol, name, artist, album, cover, order, url, lyric=None):
-    vol = Vol.objects(vol=vol)
-    if vol.__len__() == 1:
+    new_vol = Vol.objects(vol=vol)
+    if new_vol.__len__() == 1:
         track = Track(
+            vol=int(vol),
             name=name,
             artist=artist,
             album=album,
@@ -70,9 +72,9 @@ def add_track(vol, name, artist, album, cover, order, url, lyric=None):
         )
         track.save()
 
-        vol = vol[0]
-        vol.list.append(track)
-        vol.save()
+        new_vol = new_vol[0]
+        new_vol.list.append(track)
+        new_vol.save()
         return True
     return False
 
