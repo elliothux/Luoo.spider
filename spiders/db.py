@@ -36,7 +36,6 @@ class Vol(db.Document):
     cover = db.StringField(required=True, unique=False)
     description = db.StringField(required=False, unique=False)
     date = db.StringField(required=True)
-    list = db.ListField(db.ReferenceField(Track))
     length = db.IntField(required=True)
     tag = db.StringField(default=None)
 
@@ -71,10 +70,6 @@ def add_track(vol, name, artist, album, cover, order, url, lyric=None):
             lyric=lyric
         )
         track.save()
-
-        new_vol = new_vol[0]
-        new_vol.list.append(track)
-        new_vol.save()
         return True
     return False
 
