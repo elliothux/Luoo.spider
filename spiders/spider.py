@@ -8,7 +8,7 @@ def get_vol(page):
     title = page.find({'span'}, {'class': 'vol-title'}).get_text()
     vol = int(page.find({'span'}, {'class': 'vol-number rounded'}).get_text())
     cover = page.find({'img'}, {'class': 'vol-cover'}).attrs['src']
-    description = page.find({'div'}, {'class': 'vol-desc'}).get_text()
+    description = page.find({'div'}, {'class': 'vol-desc'}).get_text().replace('\n', '<br>')
     date = page.find({'span'}, {'class': 'vol-date'}).get_text()
     tag = page.find({'a'}, {'class': 'vol-tag-item'})
     tag = tag and tag.get_text()
