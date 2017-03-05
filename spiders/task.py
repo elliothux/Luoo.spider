@@ -35,6 +35,3 @@ def check_task(vol):
         task.save()
         return True
     return False
-
-
-# get_task()
