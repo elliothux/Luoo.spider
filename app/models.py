@@ -4,6 +4,7 @@ import json
 
 vol = db.Vol
 track = db.Track
+single = db.Single
 
 
 def get_latest_vol():
@@ -33,3 +34,17 @@ def _data2json(data):
         if each != 'id':
             json_data[each] = data[each]
     return json.dumps(json_data)
+
+
+def get_singles_list():
+    singles_list = []
+    for each in single.objects():
+        singles_list.append(each.date)
+    return json.dumps(singles_list)
+
+
+def get_single(date):
+    single_data = single.objects(date=date)
+    if single_data.__len__() == 0:
+        return json.dumps({'error': 'single not exist'})
+    return _data2json(single_data[0])
