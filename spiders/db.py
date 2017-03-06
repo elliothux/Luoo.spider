@@ -40,6 +40,19 @@ class Vol(db.Document):
     tag = db.StringField(default=None)
 
 
+class Single(db.Document):
+    def __init__(self, *args, **kwargs):
+        super(Single, self).__init__(*args, **kwargs)
+
+    name = db.StringField(required=True)
+    artist = db.StringField(required=True)
+    cover = db.StringField(required=True)
+    url = db.StringField(required=True)
+    description = db.StringField(required=True)
+    date = db.StringField(required=True)
+    recommender = db.StringField(required=True)
+
+
 def add_vol(title, vol, cover, description, date, length, tag):
     if Vol.objects(vol=vol).__len__() == 0:
         new_vol = Vol(
@@ -81,5 +94,22 @@ def add_task(vol, url):
             url=url
         )
         task.save()
+        return True
+    return False
+
+
+def add_single(name, artist, cover, url, description, date, recommender):
+    if Single.objects(date=date).__len__() == 0:
+        new_single = Single(
+            name=name,
+            artist=artist,
+            cover=cover,
+            url=url,
+            description=description,
+            date=date,
+            recommender=recommender
+        )
+        new_single.save()
+        print('Add single success: %s - %s' %(name, artist))
         return True
     return False

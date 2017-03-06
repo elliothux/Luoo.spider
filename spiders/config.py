@@ -4,6 +4,10 @@ VOL_URL = 'http://www.luoo.net/music/'
 
 TRACK_URL = 'http://mp3-cdn.luoo.net/low/luoo/radio'
 
+SINGLE_URL = 'http://www.luoo.net/musician/?p='
+
+SINGLE_TRACK_URL = 'http://mp3-cdn.luoo.net/low/chinese/'
+
 DISAPPEAR_VOL = [544, 566, 567, 568]
 
 USER_AGENT = [
