@@ -37,7 +37,7 @@ class Vol(db.Document):
     description = db.StringField(required=False, unique=False)
     date = db.StringField(required=True)
     length = db.IntField(required=True)
-    tag = db.StringField(default=None)
+    tag = db.ListField()
 
 
 class Single(db.Document):

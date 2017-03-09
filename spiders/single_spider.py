@@ -13,8 +13,16 @@ def get_pages_num():
 
 def get_singles_from_page(page_num):
     page = lib.load_page(config.SINGLE_URL + str(page_num))
-    get_first_single(page)
-    get_others_singles(page)
+
+    success = get_first_single(page)
+    if not success:
+        return False
+
+    success = get_others_singles(page)
+    if not success:
+        return False
+
+    return True
 
 
 def get_first_single(page):
@@ -52,7 +60,7 @@ def get_others_singles(page):
         date = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[1]
         url = config.SINGLE_TRACK_URL + date.replace('-', '') + '.mp3'
 
-        db.add_single(
+        success = db.add_single(
             name=name,
             artist=artist,
             cover=cover,
@@ -62,10 +70,22 @@ def get_others_singles(page):
             recommender=recommender
         )
 
+        if not success:
+            return False
+    return True
 
-if __name__ == '__main__':
-    for page in range(1, 62):
-        get_singles_from_page(page)
+
+def start():
+    pages = get_pages_num()
+    for page in range(1, pages):
+        success = get_singles_from_page(page)
+        if not success:
+            print('Get singles success!')
+            return False
         sleep_time = int(random() * 10)
         print('/////// sleep: %ss ////////' % sleep_time)
         sleep(sleep_time)
+
+
+if __name__ == '__main__':
+    start()
