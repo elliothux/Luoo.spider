@@ -1,0 +1,9 @@
+beautifulsoup4==4.5.1
+db==0.1.1
+Flask==0.11.1
+Flask-Script==2.0.5
+mongoengine==0.11.0
+pymongo==3.4.0
+uWSGI==2.0.14
+virtualenv==15.1.0
+web.py==0.38
