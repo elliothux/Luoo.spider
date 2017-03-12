@@ -1,5 +1,11 @@
 from app import app
 from app import models
+from app import render_template
+
+
+@app.route('/luoo.qy')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/api/vol/<vol>')
