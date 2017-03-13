@@ -15,7 +15,7 @@ def load_page(url, times=0):
 
     try:
         response = urllib.request.urlopen(request)
-        return BeautifulSoup(response.read(), 'lxml')
+        return BeautifulSoup(response.read(), 'html5lib')
 
     except urllib.error.URLError or urllib.error.HTTPError as e:
         if times <= config.MAX_TRY_TIMES:
