@@ -1,5 +1,5 @@
 SECRET_KEY = "Hard to guess"
 
-# WTF_CSRF_ENABLED = False
-
 CSRF_ENABLED = True
+
+LATEST_VERSION = '0.0.5'
