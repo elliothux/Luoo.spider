@@ -1,3 +1,4 @@
+# coding=utf-8
 from spiders import config
 from spiders import db
 from spiders import task

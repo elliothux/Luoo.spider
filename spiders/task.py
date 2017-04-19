@@ -1,7 +1,10 @@
+# coding=utf-8
 from spiders import config
 from spiders import lib
 from spiders import db
-
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def get_latest_vol():
     page = 1

@@ -4,13 +4,11 @@ from app import render_template
 import json
 
 
-# Site
-@app.route('/luoo.qy')
+@app.route('/')
 def index():
     return render_template('index.html')
 
 
-# Api to get data
 @app.route('/api/vol/<vol>')
 def get_vol(vol):
     return models.get_vol(vol)
@@ -31,7 +29,7 @@ def get_single(date):
     return models.get_single(date)
 
 
-# Api to update
+# Api to auto upgrade
 @app.route('/api/updateInfo')
 def get_update_file():
     return json.dumps({
