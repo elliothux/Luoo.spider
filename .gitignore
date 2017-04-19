@@ -1,2 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
 /venv/
+.idea/
+__pycache__/
+app/__init__.pyc
+app/__pycache__/
+spiders/__pycache__/single_spider.cpython-35.pyc
+spiders/__pycache__/start.cpython-35.pyc
+spiders/__pycache__/vol_spider.cpython-35.pyc
+spiders/db.pyc
