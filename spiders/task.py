@@ -4,14 +4,19 @@ from spiders import lib
 from spiders import db
 import sys
 import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+
+# sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 
 def get_latest_vol():
     page = 1
     url = config.START_URL + str(page)
     latest_page = lib.load_page(url)
     if latest_page:
-        latest_vol = latest_page.find({'div'}, {'class': 'vol-list'}).find({'a'}).attrs['href'].split('/')[-1]
+        latest_vol = latest_page.find({'div'}, {'class': 'vol-list'})\
+            .find({'a'}, {'class': 'name'})\
+            .get_text().split('.')[1].split(' ')[0]
         return int(latest_vol)
     return False
 
@@ -38,3 +43,6 @@ def check_task(vol):
         task.save()
         return True
     return False
+
+
+print(get_latest_vol())

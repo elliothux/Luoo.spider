@@ -2,6 +2,7 @@
 from spiders import config
 from spiders import db
 from spiders import task
+from bs4 import BeautifulSoup
 
 
 def get_vol(page):

@@ -1,7 +1,9 @@
 appdirs==1.4.3
+beautifulsoup4==4.5.3
 click==6.7
 Flask==0.12
 Flask-Script==2.0.5
+html5lib==0.999999999
 itsdangerous==0.24
 Jinja2==2.9.5
 MarkupSafe==1.0
@@ -10,4 +12,5 @@ packaging==16.8
 pymongo==3.4.0
 pyparsing==2.2.0
 six==1.10.0
+webencodings==0.5.1
 Werkzeug==0.12
