@@ -10,6 +10,7 @@ def get_vol(page):
         return each and each.get_text()
 
     # 获得 Vol 信息
+    id = int(page.find({'a'}, {'class': 'btn-action-like'}).attrs['data-id'])
     title = page.find({'span'}, {'class': 'vol-title'}).get_text()
     vol = int(page.find({'span'}, {'class': 'vol-number rounded'}).get_text())
     cover = page.find({'img'}, {'class': 'vol-cover'}).attrs['src']
@@ -30,6 +31,7 @@ def get_vol(page):
 
     # 添加 Vol
     new_vol = db.add_vol(
+        id=id,
         title=title,
         vol=vol,
         cover=cover,
@@ -61,6 +63,7 @@ def get_all_track(vol, list_data):
 def get_each_track(vol, data):
     order = int(data.find({'a'}, {'class': 'trackname btn-play'}).get_text()[:2])
     order = '0' + str(order) if order < 10 else order
+    id = int(data.find({'a'}, {'class': 'btn-action-share icon-share'}).attrs['data-id'])
 
     data = data.find({'div'}, {'class': 'player-wrapper'})
     name = data.find({'p'}, {'class': 'name'}).get_text()
@@ -70,6 +73,7 @@ def get_each_track(vol, data):
     url = config.TRACK_URL + str(vol) + '/' + str(order) + '.mp3'
 
     new_track = db.add_track(
+        id=id,
         vol=vol,
         name=name,
         artist=artist,

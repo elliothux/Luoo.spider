@@ -18,6 +18,7 @@ class Track(db.Document):
     def __init__(self, *args, **kwargs):
         super(Track, self).__init__(*args, **kwargs)
 
+    id = db.IntField(required=True)
     vol = db.IntField(required=True)
     name = db.StringField(required=True)
     artist = db.StringField(required=True)
@@ -32,6 +33,7 @@ class Vol(db.Document):
     def __init__(self, *args, **kwargs):
         super(Vol, self).__init__(*args, **kwargs)
 
+    id = db.IntField(required=True)
     title = db.StringField(required=True)
     vol = db.IntField(required=True, unique=True)
     cover = db.StringField(required=True, unique=False)
@@ -54,9 +56,10 @@ class Single(db.Document):
     recommender = db.StringField(required=True)
 
 
-def add_vol(title, vol, cover, description, date, length, tag):
+def add_vol(id, title, vol, cover, description, date, length, tag):
     if Vol.objects(vol=vol).__len__() == 0:
         new_vol = Vol(
+            id=id,
             title=title,
             vol=vol,
             cover=cover,
@@ -70,11 +73,12 @@ def add_vol(title, vol, cover, description, date, length, tag):
     return False
 
 
-def add_track(vol, name, artist, album, cover, order, url, lyric=None):
+def add_track(id, vol, name, artist, album, cover, order, url, lyric=None):
     new_vol = Vol.objects(vol=vol)
     if new_vol.__len__() == 1:
         track = Track(
             vol=int(vol),
+            id=id,
             name=name,
             artist=artist,
             album=album,
