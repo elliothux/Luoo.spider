@@ -28,6 +28,9 @@ def get_singles_from_page(page_num):
 
 def get_first_single(page):
     first_single = page.find({'div'}, {'class': 'musician-banner'})
+    id_data = first_single.find({'a'}, {'class': 'btn-action-like'})
+    id = int(id_data.attrs['data-id'])
+    from_id = int(id_data.attrs['data-from_id'])
     cover = first_single.find({'img'}, {'class': 'cover'}).attrs['src']
     meta = first_single.find({'div'}, {'class': 'meta'})
     name = meta.find({'a'}).get_text().replace(' ', '').replace('\n', '').replace('\t', '')
@@ -38,6 +41,8 @@ def get_first_single(page):
     url = config.SINGLE_TRACK_URL + date.replace('-', '') + '.mp3'
 
     return db.add_single(
+        id=id,
+        from_id=from_id,
         name=name,
         artist=artist,
         cover=cover,
@@ -52,6 +57,9 @@ def get_others_singles(page):
     single_list = page.find({'div'}, {'class': 'musician-list'})
     singles = single_list.findAll({'div'}, {'class': 'item'})
     for each in singles:
+        id_data = each.find({'a'}, {'class': 'btn-action-like'})
+        id = int(id_data.attrs['data-id'])
+        from_id = int(id_data.attrs['data-from_id'])
         cover = each.find({'img'}, {'class': 'cover'}).attrs['src']
         meta = each.find({'div'}, {'class': 'musician-wrapper'})
         name = meta.find({'a'}, {'class': 'title'}).get_text().replace(' ', '').replace('\n', '').replace('\t', '')
@@ -62,6 +70,8 @@ def get_others_singles(page):
         url = config.SINGLE_TRACK_URL + date.replace('-', '') + '.mp3'
 
         success = db.add_single(
+            id=id,
+            from_id=from_id,
             name=name,
             artist=artist,
             cover=cover,

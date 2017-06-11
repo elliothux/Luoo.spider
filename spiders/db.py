@@ -47,6 +47,8 @@ class Single(db.Document):
     def __init__(self, *args, **kwargs):
         super(Single, self).__init__(*args, **kwargs)
 
+    id = db.IntField(required=True)
+    from_id = db.IntField(required=True)
     name = db.StringField(required=True)
     artist = db.StringField(required=True)
     cover = db.StringField(required=True)
@@ -103,9 +105,11 @@ def add_task(vol, url):
     return False
 
 
-def add_single(name, artist, cover, url, description, date, recommender):
+def add_single(id, from_id, name, artist, cover, url, description, date, recommender):
     if Single.objects(date=date).__len__() == 0:
         new_single = Single(
+            id=id,
+            form_id=from_id,
             name=name,
             artist=artist,
             cover=cover,
