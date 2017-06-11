@@ -3,8 +3,8 @@ from spiders import lib
 from spiders import db
 from spiders import vol_spider
 from spiders import task
-from random import random
 from time import sleep
+from random import random
 
 
 get_task = task.get_task

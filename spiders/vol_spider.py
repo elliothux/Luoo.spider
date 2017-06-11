@@ -19,6 +19,7 @@ def get_vol(page):
     tags_data = page.findAll({'a'}, {'class': 'vol-tag-item'})
     tag = map(tag_data_to_tag, tags_data)
 
+
     # 获得 Track 信息
     list_data = page.findAll({'li'}, {'class': 'track-item rounded'})
     length = len(list_data)

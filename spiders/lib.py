@@ -2,11 +2,11 @@
 import urllib.request
 import time
 import random
-from spiders import config
 import urllib.request
 import urllib.error
 from random import choice
 from bs4 import BeautifulSoup
+from spiders import config
 
 
 # 传入URL, 以bytes返回页面源码

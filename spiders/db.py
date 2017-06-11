@@ -18,7 +18,7 @@ class Track(db.Document):
     def __init__(self, *args, **kwargs):
         super(Track, self).__init__(*args, **kwargs)
 
-    id = db.IntField(required=True)
+    track_id = db.IntField(required=True)
     vol = db.IntField(required=True)
     name = db.StringField(required=True)
     artist = db.StringField(required=True)
@@ -33,7 +33,7 @@ class Vol(db.Document):
     def __init__(self, *args, **kwargs):
         super(Vol, self).__init__(*args, **kwargs)
 
-    id = db.IntField(required=True)
+    vol_id = db.IntField(required=True)
     title = db.StringField(required=True)
     vol = db.IntField(required=True, unique=True)
     cover = db.StringField(required=True, unique=False)
@@ -47,7 +47,7 @@ class Single(db.Document):
     def __init__(self, *args, **kwargs):
         super(Single, self).__init__(*args, **kwargs)
 
-    id = db.IntField(required=True)
+    single_id = db.IntField(required=True)
     from_id = db.IntField(required=True)
     name = db.StringField(required=True)
     artist = db.StringField(required=True)
@@ -61,7 +61,7 @@ class Single(db.Document):
 def add_vol(id, title, vol, cover, description, date, length, tag):
     if Vol.objects(vol=vol).__len__() == 0:
         new_vol = Vol(
-            id=id,
+            vol_id=id,
             title=title,
             vol=vol,
             cover=cover,
@@ -80,7 +80,7 @@ def add_track(id, vol, name, artist, album, cover, order, url, lyric=None):
     if new_vol.__len__() == 1:
         track = Track(
             vol=int(vol),
-            id=id,
+            track_id=id,
             name=name,
             artist=artist,
             album=album,
@@ -108,7 +108,7 @@ def add_task(vol, url):
 def add_single(id, from_id, name, artist, cover, url, description, date, recommender):
     if Single.objects(date=date).__len__() == 0:
         new_single = Single(
-            id=id,
+            single_id=id,
             form_id=from_id,
             name=name,
             artist=artist,

@@ -3,7 +3,7 @@ from spiders import db
 from spiders import lib
 from spiders import config
 from time import sleep
-from random import random
+import random
 
 
 def get_pages_num():
