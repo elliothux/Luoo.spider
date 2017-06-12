@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Hu",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.2.0",
+    "mongodb": "^2.2.28",
+    "node-fs-extra": "^0.8.2"
+  },
+  "config": {
+    "latestVol": 922,
+    "latestSingle": 20170608
+  }
+}
