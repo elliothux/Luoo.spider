@@ -75,8 +75,8 @@ function getVolList(preVol) {
         vol.find({vol: { $gt: parseInt(preVol), $lt: getLatestVol() + 1 }})
             .toArray(async (error, doc) => {
                 if (error) reject(error);
-                for (let i=preVol+1, j=0; j<doc.length; i++, j++)
-                    doc[j].tracks = await getTracks(i)
+                for (let j=0; j<doc.length; j++)
+                    doc[j].tracks = await getTracks(parseInt(doc[j].vol))
                 resolve(doc)
         })
     }
