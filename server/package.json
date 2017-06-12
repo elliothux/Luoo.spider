@@ -11,7 +11,8 @@
     "node-fs-extra": "^0.8.2"
   },
   "scripts": {
-    "start": "node --harmony-async-await main.js"
+    "start": "node --harmony-async-await main.js",
+    "spider": "source ../venv/bin/activate && python3 ../task.py"
   },
   "config": {
     "latestVol": 922,
