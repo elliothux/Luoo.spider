@@ -8,3 +8,4 @@ spiders/__pycache__/single_spider.cpython-35.pyc
 spiders/__pycache__/start.cpython-35.pyc
 spiders/__pycache__/vol_spider.cpython-35.pyc
 spiders/db.pyc
+/server/node_modules/

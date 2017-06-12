@@ -3,6 +3,8 @@ from spiders import config
 from spiders import db
 from spiders import task
 from bs4 import BeautifulSoup
+from os import path
+import json
 
 
 def get_vol(page):
@@ -47,7 +49,8 @@ def get_vol(page):
         # 开始获取 Track
         get_all_track(vol, list_data)
         if task.check_task(vol):
-            print('---------- Vol%s: %s 添加成功! -----------' % (vol, title))
+            updateInfoFile(vol)
+            print('----------- Vol%s: %s 添加成功! -----------' % (vol, title))
             return True
         else:
             print('---------- Vol%s: %s 添加成功! 但所有曲目未正确添加! --------' % (vol, title))
@@ -88,3 +91,13 @@ def get_each_track(vol, data):
         print('%s - %s添加成功!' % (name, artist))
     else:
         print('%s - %s添加失败!' % (name, artist))
+
+
+def updateInfoFile(vol):
+    file_path = path.abspath(path.join(path.dirname(__file__), '../server/package.json'))
+    info = json.load(open(file_path, 'r'))
+    if int(vol) < int(info['config']['latestVol']):
+        return
+    info['config']['latestVol'] = vol
+    with open(file_path, 'w') as f:
+        json.dump(info, f)

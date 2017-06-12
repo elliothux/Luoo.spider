@@ -3,7 +3,9 @@ from spiders import db
 from spiders import lib
 from spiders import config
 from time import sleep
-import random
+from random import random
+from os import path
+import json
 
 
 def get_pages_num():
@@ -84,6 +86,17 @@ def get_others_singles(page):
         if not success:
             return False
     return True
+
+
+def updateInfoFile(date):
+    file_path = path.abspath(path.join(path.dirname(__file__), '../server/package.json'))
+    info = json.load(open(file_path, 'r'))
+    date = date.replace('-', '')
+    if int(date) < int(info['config']['latestSingle']):
+        return
+    info['config']['latestSingle'] = date
+    with open(file_path, 'w') as f:
+        json.dump(info, f)
 
 
 def start():

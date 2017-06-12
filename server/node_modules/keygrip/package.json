@@ -1,0 +1,17 @@
+{
+  "name": "keygrip",
+  "version": "1.0.1",
+  "description": "Key signing and verification for rotated credentials",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/expressjs/keygrip.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

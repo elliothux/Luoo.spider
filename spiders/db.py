@@ -109,7 +109,7 @@ def add_single(id, from_id, name, artist, cover, url, description, date, recomme
     if Single.objects(date=date).__len__() == 0:
         new_single = Single(
             single_id=id,
-            form_id=from_id,
+            from_id=from_id,
             name=name,
             artist=artist,
             cover=cover,
