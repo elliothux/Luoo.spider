@@ -54,7 +54,7 @@ class Single(db.Document):
     cover = db.StringField(required=True)
     url = db.StringField(required=True)
     description = db.StringField(required=True)
-    date = db.StringField(required=True)
+    date = db.IntField(required=True)
     recommender = db.StringField(required=True)
 
 

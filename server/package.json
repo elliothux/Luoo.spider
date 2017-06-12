@@ -1,16 +1,28 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "author": "Hu",
   "license": "MIT",
   "dependencies": {
     "koa": "^2.2.0",
+    "koa-router": "^7.2.0",
     "mongodb": "^2.2.28",
     "node-fs-extra": "^0.8.2"
   },
+  "scripts": {
+    "start": "node --harmony-async-await main.js"
+  },
   "config": {
     "latestVol": 922,
-    "latestSingle": 20170608
+    "latestSingle": 20170608,
+    "disappearVols": [
+      544,
+      566,
+      567,
+      568
+    ],
+    "maxRetryTimes": 20,
+    "port": 2333
   }
 }

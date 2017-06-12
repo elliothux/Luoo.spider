@@ -39,8 +39,8 @@ def get_first_single(page):
     artist = meta.find({'p'}, {'class': 'performer'}).get_text()
     description = meta.find({'p'}, {'class': 'remark'}).get_text()
     recommender = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[0]
-    date = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[1]
-    url = config.SINGLE_TRACK_URL + date.replace('-', '') + '.mp3'
+    date = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[1].replace('-', '')
+    url = config.SINGLE_TRACK_URL + date + '.mp3'
 
     return db.add_single(
         id=id,
@@ -50,7 +50,7 @@ def get_first_single(page):
         cover=cover,
         url=url,
         description=description,
-        date=date,
+        date=int(date),
         recommender=recommender
     )
 
@@ -68,8 +68,8 @@ def get_others_singles(page):
         artist = meta.find({'p'}, {'class': 'performer'}).get_text()
         description = meta.find({'p'}, {'class': 'remark'}).get_text()
         recommender = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[0]
-        date = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[1]
-        url = config.SINGLE_TRACK_URL + date.replace('-', '') + '.mp3'
+        date = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[1].replace('-', '')
+        url = config.SINGLE_TRACK_URL + date + '.mp3'
 
         success = db.add_single(
             id=id,
@@ -79,7 +79,7 @@ def get_others_singles(page):
             cover=cover,
             url=url,
             description=description,
-            date=date,
+            date=int(date),
             recommender=recommender
         )
 
