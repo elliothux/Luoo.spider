@@ -98,6 +98,6 @@ def updateInfoFile(vol):
     info = json.load(open(file_path, 'r'))
     if int(vol) < int(info['config']['latestVol']):
         return
-    info['config']['latestVol'] = vol
+    info['config']['latestVol'] = int(vol)
     with open(file_path, 'w') as f:
         json.dump(info, f)

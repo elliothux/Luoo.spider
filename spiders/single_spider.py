@@ -50,7 +50,7 @@ def get_first_single(page):
         cover=cover,
         url=url,
         description=description,
-        date=int(date),
+        date=date,
         recommender=recommender
     )
 
@@ -91,10 +91,9 @@ def get_others_singles(page):
 def updateInfoFile(date):
     file_path = path.abspath(path.join(path.dirname(__file__), '../server/package.json'))
     info = json.load(open(file_path, 'r'))
-    date = date.replace('-', '')
     if int(date) < int(info['config']['latestSingle']):
         return
-    info['config']['latestSingle'] = date
+    info['config']['latestSingle'] = int(date)
     with open(file_path, 'w') as f:
         json.dump(info, f)
 

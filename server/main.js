@@ -7,22 +7,33 @@ const config = require('./package.json').config;
 const [app, router] = [new Koa(), new Router()];
 
 
-router.get('/vol/:preVol', async (ctx, next) => {
-    const data = [];
-    for (let i=parseInt(ctx.params.preVol)+1; i<=db.vol.latest(); i++) {
-        const vol = await db.vol.get(i);
-        if (vol) {
-            vol.tracks = await db.vol.tracks(i);
-            data.push(vol)
-        }
-    }
-    ctx.body = JSON.stringify(data)
+router.get('/vols/:preVol', async ctx => {
+    ctx.body = JSON.stringify(await db.vol.getList(parseInt(ctx.params.preVol)))
 });
 
 
-router.get('/single/:preSingle', async (ctx, next) => {
-    // const data = [];
-    // for (let i=parseInt(ctx.params))
+router.get('/singles/:preDate', async ctx => {
+    ctx.body = JSON.stringify(await db.single.getList(parseInt(ctx.params.preDate)))
+});
+
+
+router.get('/vol/:vol', async ctx => {
+    const data = await db.vol.get(parseInt(ctx.params.vol));
+    data && (data.tracks = await db.vol.tracks(parseInt(ctx.params.vol)));
+    ctx.body = JSON.stringify(data || 'error')
+});
+
+
+router.get('/single/:date', async ctx => {
+    const data = await db.single.get(parseInt(ctx.params.date));
+    ctx.body = JSON.stringify(data || 'error')
+});
+
+
+router.get('/latest/:type', ctx => {
+    const type = ctx.params.type;
+    ctx.body = (type === 'vol' || type === 'single') ?
+        db[type].latest() : -1
 });
 
 
