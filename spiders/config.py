@@ -10,6 +10,8 @@ SINGLE_TRACK_URL = 'http://mp3-cdn.luoo.net/low/chinese/'
 
 DISAPPEAR_VOL = [544, 566, 567, 568]
 
+UNIQUE_VOL = [522, 594, 498]
+
 USER_AGENT = [
     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
     "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Acoo Browser; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)",

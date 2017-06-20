@@ -27,6 +27,7 @@ class Track(db.Document):
     order = db.IntField(required=True)
     url = db.StringField(required=True)
     lyric = db.StringField(required=False)
+    color = db.ListField(required=True)
 
 
 class Vol(db.Document):
@@ -41,6 +42,7 @@ class Vol(db.Document):
     date = db.StringField(required=True)
     length = db.IntField(required=True)
     tag = db.ListField()
+    color = db.ListField(required=True)
 
 
 class Single(db.Document):
@@ -56,9 +58,10 @@ class Single(db.Document):
     description = db.StringField(required=True)
     date = db.IntField(required=True)
     recommender = db.StringField(required=True)
+    color = db.ListField(required=True)
 
 
-def add_vol(id, title, vol, cover, description, date, length, tag):
+def add_vol(id, title, vol, cover, description, date, length, tag, color):
     if Vol.objects(vol=vol).__len__() == 0:
         new_vol = Vol(
             vol_id=id,
@@ -68,14 +71,15 @@ def add_vol(id, title, vol, cover, description, date, length, tag):
             description=description,
             date=date,
             length=length,
-            tag=tag
+            tag=tag,
+            color=color
         )
         new_vol.save()
         return True
     return False
 
 
-def add_track(id, vol, name, artist, album, cover, order, url, lyric=None):
+def add_track(id, vol, name, artist, album, cover, order, url, color, lyric=None):
     new_vol = Vol.objects(vol=vol)
     if new_vol.__len__() == 1:
         track = Track(
@@ -87,7 +91,8 @@ def add_track(id, vol, name, artist, album, cover, order, url, lyric=None):
             cover=cover,
             order=order,
             url=url,
-            lyric=lyric
+            lyric=lyric,
+            color=color
         )
         track.save()
         return True
@@ -105,7 +110,7 @@ def add_task(vol, url):
     return False
 
 
-def add_single(id, from_id, name, artist, cover, url, description, date, recommender):
+def add_single(id, from_id, name, artist, cover, url, description, date, recommender, color):
     if Single.objects(date=date).__len__() == 0:
         new_single = Single(
             single_id=id,
@@ -116,7 +121,8 @@ def add_single(id, from_id, name, artist, cover, url, description, date, recomme
             url=url,
             description=description,
             date=date,
-            recommender=recommender
+            recommender=recommender,
+            color=color
         )
         new_single.save()
         print('Add single success: %s - %s' %(name, artist))

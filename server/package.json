@@ -16,7 +16,7 @@
     "spider": "source ../venv/bin/activate && python3 ../task.py"
   },
   "config": {
-    "latestVol": 922,
+    "latestVol": 923,
     "latestSingle": 20170608,
     "disappearVols": [
       544,

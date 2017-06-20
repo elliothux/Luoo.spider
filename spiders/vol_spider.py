@@ -2,6 +2,7 @@
 from spiders import config
 from spiders import db
 from spiders import task
+from spiders import lib
 from bs4 import BeautifulSoup
 from os import path
 import json
@@ -20,6 +21,7 @@ def get_vol(page):
     date = page.find({'span'}, {'class': 'vol-date'}).get_text()
     tags_data = page.findAll({'a'}, {'class': 'vol-tag-item'})
     tag = map(tag_data_to_tag, tags_data)
+    color = lib.get_average_color(cover)
 
 
     # 获得 Track 信息
@@ -41,7 +43,8 @@ def get_vol(page):
         description=description,
         date=date,
         length=length,
-        tag=tag
+        tag=tag,
+        color=color
     )
 
     # 添加 Vol 成功
@@ -75,6 +78,7 @@ def get_each_track(vol, data):
     album = data.find({'p'}, {'class': 'album'}).get_text()[7:]
     cover = data.find({'img'}, {'class': 'cover rounded'}).attrs['src']
     url = config.TRACK_URL + str(vol) + '/' + str(order) + '.mp3'
+    color = lib.get_average_color(cover)
 
     new_track = db.add_track(
         id=id,
@@ -84,7 +88,8 @@ def get_each_track(vol, data):
         album=album,
         cover=cover,
         order=order,
-        url=url
+        url=url,
+        color=color
     )
 
     if new_track:

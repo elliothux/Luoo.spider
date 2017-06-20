@@ -41,6 +41,8 @@ def get_first_single(page):
     recommender = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[0]
     date = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[1].replace('-', '')
     url = config.SINGLE_TRACK_URL + date + '.mp3'
+    color = lib.get_average_color(cover)
+    updateInfoFile(date)
 
     return db.add_single(
         id=id,
@@ -51,7 +53,8 @@ def get_first_single(page):
         url=url,
         description=description,
         date=date,
-        recommender=recommender
+        recommender=recommender,
+        color=color
     )
 
 
@@ -70,6 +73,7 @@ def get_others_singles(page):
         recommender = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[0]
         date = meta.find({'p'}, {'class': 'date'}).get_text().split('・')[1].replace('-', '')
         url = config.SINGLE_TRACK_URL + date + '.mp3'
+        color = lib.get_average_color(cover)
 
         success = db.add_single(
             id=id,
@@ -80,7 +84,8 @@ def get_others_singles(page):
             url=url,
             description=description,
             date=int(date),
-            recommender=recommender
+            recommender=recommender,
+            color=color
         )
 
         if not success:
