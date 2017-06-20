@@ -1,6 +1,7 @@
 # coding=utf-8
 import time
 import random
+import execjs
 import urllib.request
 import urllib.error
 from random import choice
@@ -35,12 +36,12 @@ def get_average_color(url):
     with open('_temp.jpg', 'wb') as handler:
         handler.write(image)
     image = Image.open('_temp.jpg')
-    colour_tuple = [None, None, None]
+    image = image.convert('RGB')
+    colors = [None, None, None]
     for channel in range(3):
         pixels = image.getdata(band=channel)
         values = []
         for pixel in pixels:
             values.append(pixel)
-        colour_tuple[channel] = round(sum(values) / len(values), 2)
-    print(colour_tuple)
-    return tuple(colour_tuple)
+        colors[channel] = round(sum(values) / len(values), 2)
+    return colors
