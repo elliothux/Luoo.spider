@@ -1,7 +1,6 @@
 # coding=utf-8
 import time
 import random
-import execjs
 import urllib.request
 import urllib.error
 from random import choice
@@ -10,7 +9,7 @@ from spiders import config
 from PIL import Image
 
 
-# 传入URL, 以bytes返回页面源码
+
 def load_page(url, times=0, raw=False):
     head = {'User-Agent': choice(config.USER_AGENT)}
     request = urllib.request.Request(headers=head, url=url)
@@ -33,6 +32,9 @@ def load_page(url, times=0, raw=False):
 
 def get_average_color(url):
     image = load_page(url=url, raw=True)
+    if not image:
+        print('封面获取失败 %s' % url)
+        return [0, 0, 0]
     with open('_temp.jpg', 'wb') as handler:
         handler.write(image)
     image = Image.open('_temp.jpg')

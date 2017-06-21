@@ -25,9 +25,7 @@ def get_task():
     latest_vol = get_latest_vol()
     for vol in range(latest_vol, 0, -1):
         if vol not in config.DISAPPEAR_VOL:
-            print(vol)
             url = config.VOL_URL + str(vol)
-            print(url)
             if db.add_task(vol=vol, url=url):
                 print('已添加任务: Vol%s' % vol)
             else:
@@ -43,6 +41,3 @@ def check_task(vol):
         task.save()
         return True
     return False
-
-
-print(get_latest_vol())
