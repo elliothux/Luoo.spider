@@ -25,6 +25,6 @@
       568
     ],
     "maxRetryTimes": 20,
-    "port": 2333
+    "port": 80
   }
 }
