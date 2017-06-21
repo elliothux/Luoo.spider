@@ -1,6 +1,7 @@
 # coding=utf-8
 import time
 import random
+import math
 import urllib.request
 import urllib.error
 from random import choice
@@ -45,5 +46,5 @@ def get_average_color(url):
         values = []
         for pixel in pixels:
             values.append(pixel)
-        colors[channel] = round(sum(values) / len(values), 2)
+        colors[channel] = math.ceil(sum(values) / len(values))
     return colors
