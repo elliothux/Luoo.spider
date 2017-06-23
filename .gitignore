@@ -11,3 +11,5 @@ spiders/db.pyc
 /server/node_modules/
 /spiders/_temp.jpg
 /server/node_modules/.yarn-integrity
+/website/node_modules/
+/website/yarn-error.log
