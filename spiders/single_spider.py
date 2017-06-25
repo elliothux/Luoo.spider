@@ -2,6 +2,7 @@
 from spiders import db
 from spiders import lib
 from spiders import config
+from spiders.lib import log
 from time import sleep
 from random import random
 from os import path
@@ -108,10 +109,10 @@ def start():
     for page in range(1, pages):
         success = get_singles_from_page(page)
         if not success:
-            print('Get singles success!')
+            log('Get singles success!')
             return False
         sleep_time = int(random() * 10)
-        print('/////// sleep: %ss ////////' % sleep_time)
+        log('/////// sleep: %ss ////////' % sleep_time)
         sleep(sleep_time)
 
 

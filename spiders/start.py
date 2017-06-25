@@ -3,6 +3,7 @@ from spiders import lib
 from spiders import db
 from spiders import vol_spider
 from spiders import task
+from spiders.lib import log
 from time import sleep
 from random import random
 
@@ -18,7 +19,7 @@ def start():
         page = lib.load_page(url)
         vol_spider.get_vol(page)
         sleep_time = int(random()*10)
-        print('/////// sleep: %ss ////////' % sleep_time)
+        log('/////// sleep: %ss ////////' % sleep_time)
         sleep(sleep_time)
 
 

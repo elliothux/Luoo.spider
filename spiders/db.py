@@ -1,4 +1,5 @@
 # coding=utf-8
+from spiders.lib import log
 import mongoengine as db
 
 
@@ -125,6 +126,6 @@ def add_single(id, from_id, name, artist, cover, url, description, date, recomme
             color=color
         )
         new_single.save()
-        print('Add single success: %s - %s' %(name, artist))
+        log('Add single success: %s - %s' %(name, artist))
         return True
     return False

@@ -34,7 +34,7 @@ def load_page(url, times=0, raw=False):
 def get_average_color(url):
     image = load_page(url=url, raw=True)
     if not image:
-        print('封面获取失败 %s' % url)
+        log('封面获取失败 %s' % url)
         return [0, 0, 0]
     with open('_temp.jpg', 'wb') as handler:
         handler.write(image)
@@ -48,3 +48,8 @@ def get_average_color(url):
             values.append(pixel)
         colors[channel] = math.ceil(sum(values) / len(values))
     return colors
+
+
+def log(str):
+    str = str.encode('utf-8').decode('utf-8')
+    print(str)
