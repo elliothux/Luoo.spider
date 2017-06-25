@@ -8,7 +8,12 @@ from random import choice
 from bs4 import BeautifulSoup
 from spiders import config
 from PIL import Image
+import sys
+import io
 
+
+if sys.platform != 'darwin':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 def load_page(url, times=0, raw=False):
