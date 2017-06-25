@@ -2,6 +2,12 @@
 from spiders import start
 from spiders import single_spider
 from time import sleep
+import sys
+import io
+
+
+if sys.platform != 'darwin':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 def start_task():
