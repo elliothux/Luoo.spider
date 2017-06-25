@@ -1,5 +1,5 @@
 const db = require('mongodb').MongoClient;
-const config = require('./package.json').config;
+const config = () => require('./package.json').config;
 
 
 module.exports = {
@@ -28,13 +28,13 @@ db.connect('mongodb://localhost:27017/luoo', function (error, db) {
 
 function getVol(volNum) {
     return new Promise((resolve, reject) => {
-        if (config.disappearVols.includes(vol))
+        if (config().disappearVols.includes(vol))
             return false;
         let retryTimes = 0;
         let timer;
         if (!vol)
             timer = setInterval(function () {
-                if (retryTimes > config.maxRetryTimes)
+                if (retryTimes > config().maxRetryTimes)
                     return reject('Database not available now.');
                 console.log('Waiting for database. Retry 200ms later.');
                 if (vol) {
@@ -60,7 +60,7 @@ function getVolList(preVol) {
         let timer;
         if (!vol)
             timer = setInterval(function () {
-                if (retryTimes > config.maxRetryTimes)
+                if (retryTimes > config().maxRetryTimes)
                     return reject('Database not available now.');
                 console.log('Waiting for database. Retry 200ms later.');
                 if (vol) {
@@ -89,7 +89,7 @@ function getSingle(date) {
         let timer;
         if (!single)
             timer = setInterval(function () {
-                if (retryTimes > config.maxRetryTimes)
+                if (retryTimes > config().maxRetryTimes)
                     return reject('Database not available now.');
                 console.log('Waiting for database. Retry 200ms later.');
                 if (single) {
@@ -115,7 +115,7 @@ function getSingleList(preDate) {
         let timer;
         if (!single)
             timer = setInterval(function () {
-                if (retryTimes > config.maxRetryTimes)
+                if (retryTimes > config().maxRetryTimes)
                     return reject('Database not available now.');
                 console.log('Waiting for database. Retry 200ms later.');
                 if (single) {
@@ -138,13 +138,13 @@ function getSingleList(preDate) {
 
 function getTracks(volNum) {
     return new Promise((resolve, reject) => {
-        if (config.disappearVols.includes(vol))
+        if (config().disappearVols.includes(vol))
             return [];
         let retryTimes = 0;
         let timer;
         if (!track)
             timer = setInterval(function () {
-                if (retryTimes > config.maxRetryTimes)
+                if (retryTimes > config().maxRetryTimes)
                     return reject('Database not available now.');
                 console.log('Waiting for database. Retry 200ms later.');
                 if (track) {
@@ -165,10 +165,10 @@ function getTracks(volNum) {
 
 
 function getLatestVol() {
-    return config.latestVol
+    return config().latestVol
 }
 
 
 function getLatestSingle() {
-    return config.latestSingle
+    return config().latestSingle
 }

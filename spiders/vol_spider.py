@@ -102,7 +102,7 @@ def get_each_track(vol, data):
 def updateInfoFile(vol):
     file_path = path.abspath(path.join(path.dirname(__file__), '../server/package.json'))
     info = json.load(open(file_path, 'r'))
-    if int(vol) < int(info['config']['latestVol']):
+    if int(vol) <= int(info['config']['latestVol']):
         return
     info['config']['latestVol'] = int(vol)
     with open(file_path, 'w') as f:

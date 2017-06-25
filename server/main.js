@@ -2,7 +2,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const colors = require('colors');
 const db = require('./db');
-const config = require('./package.json').config;
+const config = () => require('./package.json').config;
 
 
 const [app, router] = [new Koa(), new Router()];
@@ -43,7 +43,7 @@ router.get('/latest/:type', ctx => {
 });
 
 
-app.use(router.routes()).listen(config.port);
+app.use(router.routes()).listen(config().port);
 
 
 
