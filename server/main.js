@@ -43,11 +43,24 @@ router.get('/latest/:type', ctx => {
 });
 
 
+router.get('/download/:platform', ctx => {
+    const platform = parseInt(ctx.params.platform);
+    const URL = `http://os3s219a3.bkt.clouddn.com/Luoo.qy-v${require('./package.json').update.fullVersion}.${['dmg', 'exe', 'zip'][platform]}`;
+    ctx.redirect(URL)
+});
+
+router.get('/update/:platform/:preVersion', ctx => {
+    const info = require('./package.json').update;
+    if (info.type === 'full') ctx.body = JSON.stringify({
+        type: 'full',
+        version: info.fullVersion,
+        URL: `http://os3s219a3.bkt.clouddn.com/Luoo.qy-v${info.fullVersion}.${['dmg', 'exe', 'zip'][parseInt(ctx.params.platform)]}`
+    });
+    else ctx.body = JSON.stringify({
+        type: info.type,
+        version: info.version,
+        URL: `http://os3s219a3.bkt.clouddn.com/update-v${info.version}.zip}`
+    });
+});
+
 app.use(router.routes()).listen(config().port);
-
-
-
-function log(api, ip) {
-    ip = ip.split(':')[3];
-    console.log(`Response api "${api.red}" to ${ip.yellow} at ${(new Date()).toLocaleString().green}`)
-}
