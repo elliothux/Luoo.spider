@@ -3,7 +3,6 @@ from spiders import config
 from spiders import db
 from spiders import task
 from spiders import lib
-from spiders.lib import log
 from bs4 import BeautifulSoup
 from os import path
 import json
@@ -54,12 +53,12 @@ def get_vol(page):
         get_all_track(vol, list_data)
         if task.check_task(vol):
             updateInfoFile(vol)
-            log('----------- Vol%s: %s 添加成功! -----------' % (vol, title))
+            print('----------- Vol%s: Date-%s Add Success! -----------' % (vol, date))
             return True
         else:
-            log('---------- Vol%s: %s 添加成功! 但所有曲目未正确添加! --------' % (vol, title))
+            print('---------- Vol%s: Add Success While Tracks Add Failed!  --------' % (vol))
     else:
-        log('------------ Vol%s: %s 添加失败! ----------' % (vol, title))
+        print('------------ Vol%s: Date-%s Add Failed! ----------' % (vol, date))
         return False
 
 
@@ -94,9 +93,9 @@ def get_each_track(vol, data):
     )
 
     if new_track:
-        log('%s - %s添加成功!' % (name, artist))
+        print('Track Of Vol%s Id-%s Add Success!' % (vol, id))
     else:
-        log('%s - %s添加失败!' % (name, artist))
+        print('Track Of Vol%s Id-%s Add Success!' % (vol, id))
 
 
 def updateInfoFile(vol):

@@ -2,7 +2,6 @@
 from spiders import db
 from spiders import lib
 from spiders import config
-from spiders.lib import log
 from time import sleep
 from random import random
 from os import path
@@ -91,6 +90,7 @@ def get_others_singles(page):
 
         if not success:
             return False
+        print('Add single success: Date-%s and Id-%s' %(str(date), str(id)))
     return True
 
 
@@ -109,10 +109,11 @@ def start():
     for page in range(1, pages):
         success = get_singles_from_page(page)
         if not success:
-            log('Get singles success!')
+            print('Get singles failed!')
             return False
+        print('Get singles success!')
         sleep_time = int(random() * 10)
-        log('/////// sleep: %ss ////////' % sleep_time)
+        print('/////// sleep: %ss ////////' % sleep_time)
         sleep(sleep_time)
 
 

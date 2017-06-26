@@ -27,7 +27,7 @@ def load_page(url, times=0, raw=False):
     except urllib.error.URLError or urllib.error.HTTPError as e:
         if times <= config.MAX_TRY_TIMES:
             sleep_time = random.randint(5, 10)
-            print('载入页面失败, %s秒后重试' % (str(sleep_time)))
+            print('Load Page Failed. Retry %ss later' % (str(sleep_time)))
             print(e)
             time.sleep(sleep_time)
             times += 1
@@ -39,7 +39,7 @@ def load_page(url, times=0, raw=False):
 def get_average_color(url):
     image = load_page(url=url, raw=True)
     if not image:
-        log('封面获取失败 %s' % url)
+        print('Get cover failed: %s' % url)
         return [0, 0, 0]
     with open('_temp.jpg', 'wb') as handler:
         handler.write(image)
@@ -53,8 +53,3 @@ def get_average_color(url):
             values.append(pixel)
         colors[channel] = math.ceil(sum(values) / len(values))
     return colors
-
-
-def log(str):
-    str = str.encode('utf-8').decode('utf-8')
-    print(str)

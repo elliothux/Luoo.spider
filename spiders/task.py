@@ -2,7 +2,6 @@
 from spiders import config
 from spiders import lib
 from spiders import db
-from spiders.lib import log
 
 
 
@@ -24,9 +23,9 @@ def get_task():
         if vol not in config.DISAPPEAR_VOL:
             url = config.VOL_URL + str(vol)
             if db.add_task(vol=vol, url=url):
-                log('已添加任务: Vol%s' % vol)
+                print('Add Task: Vol%s' % vol)
             else:
-                log('所有任务添加完毕!')
+                print('All Tasks Add Success!')
                 return True
 
 
