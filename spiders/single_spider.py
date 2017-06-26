@@ -109,7 +109,6 @@ def start():
     for page in range(1, pages):
         success = get_singles_from_page(page)
         if not success:
-            print('Get singles failed!')
             return False
         print('Get singles success!')
         sleep_time = int(random() * 10)

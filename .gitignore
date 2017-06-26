@@ -13,3 +13,4 @@ spiders/db.pyc
 /server/node_modules/.yarn-integrity
 /website/node_modules/
 /website/yarn-error.log
+/website/.idea/
