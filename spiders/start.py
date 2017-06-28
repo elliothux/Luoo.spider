@@ -13,6 +13,7 @@ get_task = task.get_task
 def start():
     get_task()
     all_task = db.Task.objects(done=False)
+    print('/////// Start Spider ////////')
     for each in all_task:
         url = each.url
         page = lib.load_page(url)

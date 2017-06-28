@@ -18,6 +18,7 @@ def get_latest_vol():
 
 
 def get_task():
+    print('/////// Start Getting Task ////////')
     latest_vol = get_latest_vol()
     for vol in range(latest_vol, 0, -1):
         if vol not in config.DISAPPEAR_VOL:
