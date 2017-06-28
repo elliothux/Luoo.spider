@@ -96,11 +96,11 @@ def get_others_singles(page):
 
 def updateInfoFile(date):
     file_path = path.abspath(path.join(path.dirname(__file__), '../server/package.json'))
-    info = json.load(open(file_path, 'r'))
+    info = json.load(open(file_path, 'r', encoding='utf-8'))
     if int(date) < int(info['config']['latestSingle']):
         return
     info['config']['latestSingle'] = int(date)
-    with open(file_path, 'w') as f:
+    with open(file_path, 'w', encoding='utf-8') as f:
         json.dump(info, f)
 
 
