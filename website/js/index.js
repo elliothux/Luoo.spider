@@ -1,66 +1,104 @@
 
 const T = THREE;
-const controls = new function() {
-    this.rotationSpeed = 0.02;
-    this.bouncingSpeed = 0.03;
-    this.posZ = 0;
-};
+
+window.addEventListener('load', init);
+
+function init () {
+        const stats = initStats();
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const webGLRenderer = new THREE.WebGLRenderer();
+
+        // webGLRenderer.setClearColor(new THREE.Color('black', 1.0));
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.x = 20;
+        camera.position.y = 0;
+        camera.position.z = 150;
+        document.getElementsByTagName("body")[0].appendChild(webGLRenderer.domElement);
+
+        const controls = new function() {
+            this.size = 8;
+            this.transparent = true;
+            this.opacity = 1;
+            this.vertexColors = true;
+            this.color = 0xffffff;
+            this.sizeAttenuation = true;
+            this.rotateSystem = true;
+
+            this.redraw = function () {
+                if (scene.getObjectByName("particles")) {
+                    scene.remove(scene.getObjectByName("particles"));
+                }
+                createParticles(controls.size, controls.transparent, controls.opacity, controls.vertexColors, controls.sizeAttenuation, controls.color);
+            };
+        };
+
+        let cloud;
+
+        const gui = new dat.GUI();
+        gui.add(controls, 'size', 0, 10).onChange(controls.redraw);
+        gui.add(controls, 'transparent').onChange(controls.redraw);
+        gui.add(controls, 'opacity', 0, 1).onChange(controls.redraw);
+        gui.add(controls, 'vertexColors').onChange(controls.redraw);
+        gui.addColor(controls, 'color').onChange(controls.redraw);
+        gui.add(controls, 'sizeAttenuation').onChange(controls.redraw);
+        gui.add(controls, 'rotateSystem');
+        controls.redraw();
+
+        render();
+
+        function createParticles(size, transparent, opacity, vertexColors, sizeAttenuation, color) {
+            const geom = new THREE.Geometry();
+            const material = new THREE.PointsMaterial({
+                size: size,
+                transparent: transparent,
+                opacity: opacity,
+                vertexColors: vertexColors,
+                sizeAttenuation: sizeAttenuation,
+                color: color
+            });
+
+            let range = 500;
+            for (let i = 0; i < 5000; i++) {
+                let particle = new THREE.Vector3(Math.random() * range - range / 2, Math.random() * range - range / 2, Math.random() * range - range / 2);
+                geom.vertices.push(particle);
+                const [r, g, b] = [Math.ceil(Math.random() * 255), Math.ceil(Math.random() * 255), Math.ceil(Math.random() * 255)];
+                let color = new THREE.Color(`rgb(${r}, ${g}, ${b})`);
+                color.setHSL(color.getHSL().h, color.getHSL().s, Math.random() * color.getHSL().l);
+                geom.colors.push(color);
+            }
+
+            cloud = new THREE.Points(geom, material);
+            cloud.name = "particles";
+            scene.add(cloud);
+        }
 
 
-(function () {
-    const stats = initStats();
-    const [W, H] = [window.innerWidth, window.innerHeight];
-    const gui = new dat.GUI();
-    gui.add(controls, 'rotationSpeed', 0, 0.5);
-    gui.add(controls, 'bouncingSpeed', 0, 0.5);
-    gui.add(controls, 'posZ', 0, 20);
+        let step = 0;
+        function render() {
+            stats.update();
+            if (controls.rotateSystem) {
+                step += 0.004;
+                cloud.rotation.x = step;
+                cloud.rotation.z = -step;
+                cloud.position.x = step * 0.5;
+                cloud.position.y = -step * 0.6;
+            }
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
+        }
 
-    const scene = new T.Scene();
-    const camera = new T.PerspectiveCamera(45, W/H, 0.1, 1000);
-    const renderer = new T.WebGLRenderer();
-    renderer.setClearColor(0xeeeeee);
-    renderer.setSize(W, H);
-    document.getElementsByTagName('body')[0].appendChild(renderer.domElement);
+        function initStats() {
+            const stats = new Stats();
+            stats.setMode(0);
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+            document.getElementById("stats").appendChild(stats.domElement);
+            return stats;
+        }
 
-    const axes = new T.AxisHelper(W);
-    scene.add(axes);
-
-    // const cubeGeometry = new T.CubeGeometry(4, 4, 4);
-    // const cubeMaterial = new T.MeshBasicMaterial({ color: 0xff0000 });
-    // const cube = new T.Mesh(cubeGeometry, cubeMaterial);
-    // cube.position.x = 0;
-    // cube.position.y = 0;
-    // cube.position.z = 0;
-    // scene.add(cube);
-
-
-    const plane = new T.Mesh(
-        new T.PlaneGeometry(W/10, W/10),
-        new T.MeshBasicMaterial({ map: T.ImageUtils.loadTexture('./pic/cover.png') })
-    );
-    plane.position.x = 0;
-    plane.position.y = 0;
-    plane.position.z = 0;
-    scene.add(plane);
-
-    camera.position.x = 0;
-    camera.position.y = 0;
-    camera.position.z = 1000;
-    camera.lookAt(scene.position);
-
-    renderScene();
-
-
-    let step = 0;
-
-    function renderScene() {
-        stats.update();
-        plane.position.z = 499 * Math.abs(Math.cos(step)) + 1;
-        step += 0.03;
-        requestAnimationFrame(renderScene);
-        renderer.render(scene, camera);
-    }
-})();
+}
 
 
 function initStats() {
