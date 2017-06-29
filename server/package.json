@@ -9,7 +9,7 @@
   },
   "config": {
     "port": 80,
-    "latestVol": 925,
+    "latestVol": 926,
     "maxRetryTimes": 20,
     "disappearVols": [
       544,
@@ -17,19 +17,19 @@
       567,
       568
     ],
-    "latestSingle": 20170626
+    "latestSingle": 20170629
   },
   "update": {
     "mainVersion": 1,
     "mainDesc": [
-      "全新的 1.0 版本",
-      "支持用户登录",
-      "全新的 UI"
+      "\u5168\u65b0\u7684 1.0 \u7248\u672c",
+      "\u652f\u6301\u7528\u6237\u767b\u5f55",
+      "\u5168\u65b0\u7684 UI"
     ],
     "updateVersion": 2,
     "updateDesc": [
-      "提升性能",
-      "修复登录出错的问题"
+      "\u63d0\u5347\u6027\u80fd",
+      "\u4fee\u590d\u767b\u5f55\u51fa\u9519\u7684\u95ee\u9898"
     ],
     "type": "hot"
   },

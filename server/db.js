@@ -1,5 +1,6 @@
+const fs = require('node-fs-extra');
 const db = require('mongodb').MongoClient;
-const config = () => require('./package.json').config;
+const config = () => fs.readJSONFileSync('./package.json').config;
 
 
 module.exports = {
