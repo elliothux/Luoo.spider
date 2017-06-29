@@ -8,7 +8,7 @@
     "node-fs-extra": "^0.8.2"
   },
   "config": {
-    "port": 2333,
+    "port": 80,
     "latestVol": 925,
     "maxRetryTimes": 20,
     "disappearVols": [
