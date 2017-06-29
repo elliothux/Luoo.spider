@@ -1,13 +1,14 @@
 {
   "dependencies": {
-    "mongodb": "^2.2.28",
-    "node-fs-extra": "^0.8.2",
     "colors": "^1.1.2",
     "koa": "^2.2.0",
-    "koa-router": "^7.2.0"
+    "koa-router": "^7.2.0",
+    "koa-static-server": "^1.2.1",
+    "mongodb": "^2.2.28",
+    "node-fs-extra": "^0.8.2"
   },
   "config": {
-    "port": 80,
+    "port": 2333,
     "latestVol": 925,
     "maxRetryTimes": 20,
     "disappearVols": [
@@ -20,9 +21,16 @@
   },
   "update": {
     "mainVersion": 1,
-    "mainDesc": ["全新的 1.0 版本", "支持用户登录", "全新的 UI"],
+    "mainDesc": [
+      "全新的 1.0 版本",
+      "支持用户登录",
+      "全新的 UI"
+    ],
     "updateVersion": 2,
-    "updateDesc": ["提升性能", "修复登录出错的问题"],
+    "updateDesc": [
+      "提升性能",
+      "修复登录出错的问题"
+    ],
     "type": "hot"
   },
   "version": "1.0.0",

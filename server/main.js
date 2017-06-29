@@ -1,5 +1,7 @@
 const Koa = require('koa');
 const Router = require('koa-router');
+const fs = require('fs');
+const path = require('path');
 const colors = require('colors');
 const db = require('./db');
 const config = () => require('./package.json');
@@ -77,7 +79,10 @@ router.get('/update/:platform/:preVersion', ctx => {
 
 
 app.use(router.routes()).listen(config().config.port);
-
+app.use(require('koa-static-server')({
+    rootDir: path.join(__dirname, '../website'),
+    index: 'index.html'
+}));
 
 
 function log(api, ip) {
