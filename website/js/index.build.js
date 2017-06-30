@@ -76,15 +76,15 @@
 window.addEventListener('load', function () {
     document.getElementsByTagName('body')[0].style.display = 'block';
     setClass('bgScene');
-    setClass('bgMan', 500);
-    setClass('bgShadow', 400);
-    setClass('download', 800, 'button show');
-    setClass('github', 700, 'button show');
-    setClass('logo', 800);
-    setClass('logoText', 1000);
-    setClass('text0', 1100);
-    setClass('textSymbol', 1300);
-    setClass('text1', 1200);
+    setClass('bgMan', 800);
+    setClass('bgShadow', 700);
+    setClass('logo', 1300);
+    setClass('logoText', 1500);
+    setClass('download', 1700, 'button show');
+    setClass('github', 1900, 'button show');
+    setClass('text0', 2300);
+    setClass('textSymbol', 2500);
+    setClass('text1', 2300);
 
     document.getElementById('download').addEventListener('click', function () {
         document.getElementById('downloads').className = 'show';
