@@ -27,7 +27,7 @@ body {
     height: auto;
     position: absolute;
     bottom: 0;
-    transition: all ease-out 800ms;
+    transition: all ease-out 1000ms;
 }
 #bgMan {
     height: auto;
@@ -35,7 +35,7 @@ body {
     margin-left: 45%;
     position: absolute;
     bottom: 0;
-    transition: all ease-out 500ms;
+    transition: all ease-out 800ms;
 }
 #bgShadow {
     height: auto;
@@ -46,7 +46,7 @@ body {
     transform: scaleX(-1);
     filter: FlipH;
     opacity: 0.2;
-    transition: all ease-out 800ms;
+    transition: all ease-out 900ms;
 }
 
 .hide#bgScene {
@@ -72,14 +72,14 @@ body {
     position: relative;
     width: 3%;
     margin: 50px 15px 0 calc(45.5% - 15px);
-    transition: all ease-out 600ms;
+    transition: all ease-out 800ms;
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1))
 }
 #logoText {
     z-index: 2;
     position: relative;
     width: 6.5%;
-    transition: all ease-out 600ms;
+    transition: all ease-out 800ms;
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4))
 }
 
@@ -101,19 +101,19 @@ body {
 #text0 {
     left: calc(50% - 35px);
     top: calc(48% + 105px);
-    transition: all ease-out 600ms;
+    transition: all ease-out 900ms;
 }
 #text1 {
     left: calc(50% + 15px);
     top: 48%;
-    transition: all ease-out 600ms;
+    transition: all ease-out 900ms;
 }
 #textSymbol {
     left: calc(50% - 15px);
     top: calc(48% + 70px);
     font-size: 2em;
     transform: rotate(-60deg);
-    transition: all ease-out 600ms;
+    transition: all ease-out 900ms;
 }
 
 .hide#text0 {
@@ -146,7 +146,7 @@ body {
     font-size: 0.9em;
     font-weight: lighter;
     cursor: pointer;
-    transition: all ease-out 600ms;
+    transition: all ease-out 800ms;
 }
 .button:hover {
     background-color: rgba(0, 0, 0, 0.3);
@@ -159,7 +159,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    transition: all ease 600ms;
+    transition: all ease 800ms;
 }
 #downloads .button {
     display: inline-block;
@@ -167,7 +167,7 @@ body {
 }
 
 .hide#download, .hide#github {
-    transform: translateY(-200%);
+    transform: translateY(-300%);
 }
 .show#download, .show#github {
     transform: translateY(0);
