@@ -73,114 +73,46 @@
 "use strict";
 
 
-var T = THREE;
+window.addEventListener('load', function () {
+    document.getElementsByTagName('body')[0].style.display = 'block';
+    setClass('bgScene');
+    setClass('bgMan', 500);
+    setClass('bgShadow', 400);
+    setClass('download', 800, 'button show');
+    setClass('github', 700, 'button show');
+    setClass('logo', 800);
+    setClass('logoText', 1000);
+    setClass('text0', 1100);
+    setClass('textSymbol', 1300);
+    setClass('text1', 1200);
 
-window.addEventListener('load', init);
+    document.getElementById('download').addEventListener('click', function () {
+        document.getElementById('downloads').className = 'show';
+        document.getElementById('download').className = 'button hide';
+    });
+    document.getElementById('github').addEventListener('click', function () {
+        window.open('https://github.com/HuQingyang/Luoo.qy', '_black');
+    });
+    var buttons = document.getElementById('downloads').children;
 
-function init() {
-    var stats = initStats();
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    var webGLRenderer = new THREE.WebGLRenderer();
-
-    // webGLRenderer.setClearColor(new THREE.Color('black', 1.0));
-    webGLRenderer.setSize(window.innerWidth, window.innerHeight);
-    camera.position.x = 20;
-    camera.position.y = 0;
-    camera.position.z = 150;
-    document.getElementsByTagName("body")[0].appendChild(webGLRenderer.domElement);
-
-    var controls = new function () {
-        this.size = 8;
-        this.transparent = true;
-        this.opacity = 1;
-        this.vertexColors = true;
-        this.color = 0xffffff;
-        this.sizeAttenuation = true;
-        this.rotateSystem = true;
-
-        this.redraw = function () {
-            if (scene.getObjectByName("particles")) {
-                scene.remove(scene.getObjectByName("particles"));
-            }
-            createParticles(controls.size, controls.transparent, controls.opacity, controls.vertexColors, controls.sizeAttenuation, controls.color);
-        };
-    }();
-
-    var cloud = void 0;
-
-    var gui = new dat.GUI();
-    gui.add(controls, 'size', 0, 10).onChange(controls.redraw);
-    gui.add(controls, 'transparent').onChange(controls.redraw);
-    gui.add(controls, 'opacity', 0, 1).onChange(controls.redraw);
-    gui.add(controls, 'vertexColors').onChange(controls.redraw);
-    gui.addColor(controls, 'color').onChange(controls.redraw);
-    gui.add(controls, 'sizeAttenuation').onChange(controls.redraw);
-    gui.add(controls, 'rotateSystem');
-    controls.redraw();
-
-    render();
-
-    function createParticles(size, transparent, opacity, vertexColors, sizeAttenuation, color) {
-        var geom = new THREE.Geometry();
-        var material = new THREE.PointsMaterial({
-            size: size,
-            transparent: transparent,
-            opacity: opacity,
-            vertexColors: vertexColors,
-            sizeAttenuation: sizeAttenuation,
-            color: color
+    var _loop = function _loop(i) {
+        buttons[i].addEventListener('click', function () {
+            window.open('http://l.page.\u4E2D\u56FD/download/' + i);
         });
+    };
 
-        var range = 500;
-        for (var i = 0; i < 5000; i++) {
-            var particle = new THREE.Vector3(Math.random() * range - range / 2, Math.random() * range - range / 2, Math.random() * range - range / 2);
-            geom.vertices.push(particle);
-            var _ref = [Math.ceil(Math.random() * 255), Math.ceil(Math.random() * 255), Math.ceil(Math.random() * 255)],
-                r = _ref[0],
-                g = _ref[1],
-                b = _ref[2];
-
-            var _color = new THREE.Color("rgb(" + r + ", " + g + ", " + b + ")");
-            _color.setHSL(_color.getHSL().h, _color.getHSL().s, Math.random() * _color.getHSL().l);
-            geom.colors.push(_color);
-        }
-
-        cloud = new THREE.Points(geom, material);
-        cloud.name = "particles";
-        scene.add(cloud);
+    for (var i = 0; i < buttons.length; i++) {
+        _loop(i);
     }
+});
 
-    var step = 0;
-    function render() {
-        stats.update();
-        if (controls.rotateSystem) {
-            step += 0.004;
-            cloud.rotation.x = step;
-            cloud.rotation.z = -step;
-            cloud.position.x = step * 0.5;
-            cloud.position.y = -step * 0.6;
-        }
-        requestAnimationFrame(render);
-        webGLRenderer.render(scene, camera);
-    }
+function setClass(id) {
+    var timeOut = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    var className = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'show';
 
-    function initStats() {
-        var stats = new Stats();
-        stats.setMode(0);
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
-        document.getElementById("stats").appendChild(stats.domElement);
-        return stats;
-    }
-}
-
-function initStats() {
-    var stats = new Stats();
-    stats.setMode(0);
-    document.getElementById('stats').appendChild(stats.domElement);
-    return stats;
+    setTimeout(function () {
+        return document.getElementById(id).className = className;
+    }, timeOut);
 }
 
 /***/ })
