@@ -12,12 +12,18 @@ window.addEventListener('load', () => {
     setClass('textSymbol', 1300);
     setClass('text1', 1200);
 
-
-    document.getElementById('download')
-        .addEventListener('click', function () {
-            document.getElementById('downloads').className = 'show';
-            document.getElementById('download').className = 'button hide';
-        });
+    document.getElementById('download').addEventListener('click', () => {
+        document.getElementById('downloads').className = 'show';
+        document.getElementById('download').className = 'button hide';
+    });
+    document.getElementById('github').addEventListener('click', () => {
+        window.open('https://github.com/HuQingyang/Luoo.qy', '_black')
+    });
+    const buttons = document.getElementById('downloads').children;
+    for (let i=0; i<buttons.length; i++)
+        buttons[i].addEventListener('click', () => {
+            window.open(`http://l.page.中国/download/${i}`)
+        })
 });
 
 
