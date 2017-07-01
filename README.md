@@ -58,7 +58,7 @@
 获取最新的期刊数或单曲发布日期, 允许的 type 为 vol 或 single, 如 [http://l.page.中国/latest/vol](http://l.page.中国/latest/vol)
 
 ### /update/\<platform\>/\<preVersion\>
-根据当前的版本与平台类型获取更新信息, 允许的 platform 值为 0(macOS)、1(Windows) 或 2(linux), 如: [http://l.page.中国/update/0/0.9](http://l.page.xn--fiqs8s/update/0/0.9)
+根据当前的版本与平台类型获取更新信息, 允许的 platform 值为 0(macOS)、1(Windows) 或 2(linux), 如 [http://l.page.中国/update/0/0.9](http://l.page.xn--fiqs8s/update/0/0.9)
 
 
 ##### 落 · 在低处 (2017/07/01)
