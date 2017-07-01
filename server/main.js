@@ -81,7 +81,9 @@ router.get('/update/:platform/:preVersion', ctx => {
 app.use(router.routes()).listen(config().config.port);
 app.use(require('koa-static-server')({
     rootDir: path.join(__dirname, '../website'),
-    index: 'index.html'
+    index: 'index.html',
+    gzip: true,
+    maxage: 1000 * 60 * 60 * 24
 }));
 
 
