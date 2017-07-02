@@ -23,8 +23,9 @@
     "mainVersion": 1,
     "mainDesc": [],
     "updateVersion": 0,
-    "updateDesc": [],
-    "type": "hot"
+    "updateDesc": ["修复了一个自动更新的 Bug", "UI 细节微调"],
+    "type": "hot",
+    "date": "2017 / 07 / 02"
   },
   "version": "1.0.0",
   "main": "main.js",
