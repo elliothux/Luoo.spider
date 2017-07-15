@@ -1,1 +1,42 @@
-{"dependencies": {"colors": "^1.1.2", "koa": "^2.2.0", "koa-router": "^7.2.0", "koa-static-server": "^1.2.1", "mongodb": "^2.2.28", "node-fs-extra": "^0.8.2"}, "config": {"port": 80, "latestVol": 927, "maxRetryTimes": 20, "disappearVols": [544, 566, 567, 568], "latestSingle": 20170629}, "update": {"mainVersion": 1, "mainDesc": [], "updateVersion": 1, "updateDesc": ["\u4fee\u590d\u4e86\u4e00\u4e2a\u81ea\u52a8\u66f4\u65b0\u7684 Bug", "UI \u7ec6\u8282\u5fae\u8c03"], "type": "hot", "date": "2017 / 07 / 02"}, "version": "1.0.0", "main": "main.js", "license": "MIT", "name": "server", "author": "Hu", "scripts": {"spider": "source ../venv/bin/activate && python3 ../task.py", "start": "node --harmony-async-await main.js"}}
+{
+  "dependencies": {
+    "colors": "^1.1.2",
+    "koa": "^2.2.0",
+    "koa-router": "^7.2.0",
+    "koa-static-server": "^1.2.1",
+    "mongodb": "^2.2.28",
+    "node-fs-extra": "^0.8.2"
+  },
+  "config": {
+    "port": 80,
+    "latestVol": 930,
+    "maxRetryTimes": 20,
+    "disappearVols": [
+      544,
+      566,
+      567,
+      568
+    ],
+    "latestSingle": 20170714
+  },
+  "update": {
+    "mainVersion": 1,
+    "mainDesc": [],
+    "updateVersion": 2,
+    "updateDesc": [
+      "修复了一个登陆时的 Bug",
+      "性能优化"
+    ],
+    "type": "hot",
+    "date": "2017 / 07 / 02"
+  },
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "name": "server",
+  "author": "Hu",
+  "scripts": {
+    "spider": "source ../venv/bin/activate && python3 ../task.py",
+    "start": "node --harmony-async-await main.js"
+  }
+}
