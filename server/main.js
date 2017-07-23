@@ -89,5 +89,6 @@ app.use(require('koa-static-server')({
 
 function log(api, ip) {
     ip = ip.split(':')[3];
+    db.log(api, ip);
     console.log(`Response api  ${api.red}  to  ${ip.yellow}  at  ${(new Date()).toLocaleString().green}`)
 }

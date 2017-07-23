@@ -9,7 +9,7 @@
   },
   "config": {
     "port": 80,
-    "latestVol": 930,
+    "latestVol": 933,
     "maxRetryTimes": 20,
     "disappearVols": [
       544,
@@ -17,15 +17,15 @@
       567,
       568
     ],
-    "latestSingle": 20170714
+    "latestSingle": 20170721
   },
   "update": {
     "mainVersion": 1,
     "mainDesc": [],
     "updateVersion": 2,
     "updateDesc": [
-      "修复了一个登陆时的 Bug",
-      "性能优化"
+      "\u4fee\u590d\u4e86\u4e00\u4e2a\u767b\u9646\u65f6\u7684 Bug",
+      "\u6027\u80fd\u4f18\u5316"
     ],
     "type": "hot",
     "date": "2017 / 07 / 02"

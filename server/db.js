@@ -14,17 +14,26 @@ module.exports = {
         latest: getLatestSingle,
         get: getSingle,
         getList: getSingleList
-    }
+    },
+    log: writeLog
 };
 
 
-let vol, track, single;
+let vol, track, single, log;
 db.connect('mongodb://localhost:27017/luoo', function (error, db) {
     if (error) throw new Error(error);
     vol = db.collection('vol');
     track = db.collection('track');
     single = db.collection('single');
+    log = db.collection('log');
 });
+
+
+function writeLog(api, ip) {
+    const date = new Date();
+    if (!api || !ip) return;
+    log.insert({ api, ip, date })
+}
 
 
 function getVol(volNum) {
