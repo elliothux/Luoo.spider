@@ -65,9 +65,9 @@ class Log(db.Document):
     def __init__(self, *args, **kwargs):
         super(Log, self).__init__(*args, **kwargs)
 
-    date: db.DateTimeField(required=True)
-    ip: db.StringField(required=True)
-    api: db.StringField(required=True)
+    date = db.DateTimeField(required=True)
+    ip = db.StringField(required=True)
+    api = db.StringField(required=True)
 
 
 def add_vol(id, title, vol, cover, description, date, length, tag, color):
