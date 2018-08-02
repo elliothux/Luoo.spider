@@ -31,7 +31,7 @@ class VolSpider(scrapy.Spider):
         for item in response.css('.vol-list > .item'):
             url = item.css('a.cover-wrapper::attr(href)')[0].extract()
             vol_info = item.css('a.name::text')[0].extract()
-            [vol_id, vol_name] = ' '.split(vol_info)[0]
+            [vol_id, vol_name] = vol_info.split(' ')[0]
             vol_id = int(vol_id)
             scrapy.Request(
                 url,
@@ -64,7 +64,13 @@ class VolSpider(scrapy.Spider):
         self.get_vol_tracks(response.css('li.track-item.rounded'))
 
     def get_vol_tracks(self, tracks):
-        pass
+        def get_vol_track(track):
+            [track_id, track_name] = track.css('a.trackname.btn-play::text')[0].extract().split('. ')
+            track_id = int(track_id)
+            track_artist = track.css('span.artist.btn-play')
+            # track_url =
+            pass
+        map(get_vol_track, tracks)
 
     @staticmethod
     def is_vol_exist(vol_id):
