@@ -179,3 +179,10 @@ pyvenv.cfg
 .venv
 pip-selfcheck.json
 
+.DS_Store
+.idea/Luoo.iml
+.idea/codeStyles/
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
