@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import scrapy
 
 
@@ -56,6 +58,10 @@ class VolSpider(scrapy.Spider):
         vol_id = response.meta['vol_id']
         vol_name = response.meta['vol_name']
         vol_cover = response.css('img.vol-cover::attr(src)')[0].extract()
+        vol_tags = map(
+            lambda i: i.extract().replace('#', ''),
+            response.css('a.vol-tag-item::text')
+        )
         vol_desc = '\n'.join(map(
             lambda i: i.extract(),
             response.css('div.vol-desc > p::text')
@@ -65,10 +71,12 @@ class VolSpider(scrapy.Spider):
 
     def get_vol_tracks(self, tracks):
         def get_vol_track(track):
-            [track_id, track_name] = track.css('a.trackname.btn-play::text')[0].extract().split('. ')
-            track_id = int(track_id)
-            track_artist = track.css('span.artist.btn-play')
-            # track_url =
+            [track_order, track_name] = track.css('a.trackname.btn-play::text')[0].extract().split('. ')
+            track_order = int(track_order)
+            track_id = track.css('a.btn-action-share.icon-share::attr(data-id)')[0].extract()
+            track_artist = track.css('div.player-wrapper > p.artist::text')[0].extract()[8:]
+            track_album = track.css('div.player-wrapper > p.album::text')[0].extract()[8:]
+            track_cover = track.css('div.player-wrapper > img.cover.rounded::attr(src)')[0].extract()
             pass
         map(get_vol_track, tracks)
 

@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 scrapy = "*"
+mongoengine = "*"
+pillow = "*"
 
 [dev-packages]
 
