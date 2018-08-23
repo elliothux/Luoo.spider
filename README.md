@@ -1,3 +1,5 @@
+### 🙈 Luoo.qy 新版本正在计划中，老版本因精力有限暂时停止维护
+
 # Luoo
 ### 为 Luoo.qy 提供后端 API, 基于 Python、Node.js、Koa、MongoDB 等构建
 ![Alt text](preview.jpg "Preview")
