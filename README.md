@@ -1,4 +1,4 @@
-### 🙈 Luoo.qy 新版本正在计划中，老版本因精力有限暂时停止维护
+### RIP · 因 luoo.fm 停止运营，Luoo.qy 于2019年1月停止维护 · 落在低处
 
 # Luoo
 ### 为 Luoo.qy 提供后端 API, 基于 Python、Node.js、Koa、MongoDB 等构建
