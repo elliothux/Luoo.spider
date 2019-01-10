@@ -1,0 +1,15 @@
+{
+  "name": "Luoo.Spider",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/HuQingyang/Luoo.git",
+  "author": "HuQingyang <i@do.codes>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jsdom": "^12.2.1",
+    "@types/request": "^2.48.1",
+    "jsdom": "^13.1.0",
+    "ramda": "^0.26.1",
+    "random-useragent": "^0.3.1"
+  }
+}
