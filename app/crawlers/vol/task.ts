@@ -1,7 +1,8 @@
 
 import * as R from 'ramda';
 import { VolTask, VolInfo, addVolTask, doneVolTask, isVolTaskExist } from '../../db/vol';
-import { requestHTMLDOM, getPageURL } from '../../utils';
+import { requestHTMLDOM, getPageURL, sleep } from '../../utils';
+import config from "../../../config";
 
 
 // 获取最后的Vol列表页的页码
@@ -37,15 +38,21 @@ function getVolTaskFromVolNode(volNode: Element): VolTask {
 // 添加所有的 VolTasks
 async function addVolTasks() {
     const lastPage = await getLastPage();
+    // 遍历 VolList Page
     for (let page = 1; page <= lastPage; page++) {
+        console.log(`add list page: ${page}`);
         const volTasks = await getVolPageTasks(page);
+        // 遍历 Page 内的每一 Vol
         for (let i = 0; i< volTasks.length; i++) {
             const task = volTasks[i];
+            // Task 已存在，停止遍历
             if (await isVolTaskExist(task.vol)) {
                 return;
             }
             await addVolTask(task);
+            console.log(`add task: ${task.vol}`);
         }
+        await sleep(config.SLEEP_DURATION);
     }
 }
 

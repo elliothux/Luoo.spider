@@ -53,9 +53,17 @@ function randomUA(): string {
     return USER_AGENTS[0];
 }
 
+async function sleep(duration: number): Promise<void> {
+    return new Promise<void>((resolve) => {
+       setTimeout(resolve, duration);
+    });
+}
+
+
 export {
     requestHTMLDOM,
     getPageURL,
     randomUA,
-    constants
+    constants,
+    sleep
 }
