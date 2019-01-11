@@ -1,7 +1,7 @@
 {
   "name": "Luoo.Spider",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app/index.ts",
   "repository": "https://github.com/HuQingyang/Luoo.git",
   "author": "HuQingyang <i@do.codes>",
   "license": "MIT",

@@ -1,10 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 import * as request from "request";
 import * as R from 'ramda';
 import {JSDOM} from "jsdom";
-import average from 'image-average-color';
 import * as constants from './constants';
+
 
 function requestHTML(url: string): Promise<string> {
     return new Promise<string>(((resolve, reject) => {
@@ -40,16 +41,23 @@ function getVolIdFromURL(link: string): number {
     return parseInt(R.last(link.split('/vol/index/')))
 }
 
-function downloadFile(url: string, path: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-        request
-            .get(url)
-            .on('error', reject)
-            .on('complete', (resp: request.Response, body: Buffer) => {
-                fs.writeFileSync(path, body);
-                resolve(path);
-            });
+function downloadFile(url: string, path: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        const stream = fs.createWriteStream(path);
+        request(url)
+            .pipe(stream)
+            .on('close', (err: Error) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            }
+        );
     });
+}
+
+function handleImgSrc(src: string): string {
+    return R.head(src.split('!/'));
 }
 
 function randomUA(): string {
@@ -75,18 +83,34 @@ function randomUA(): string {
     return USER_AGENTS[0];
 }
 
+function md5(content: string): string {
+    return crypto.createHash('md5').update(content).digest('hex');
+}
+
 async function getAverageColor(imgURL: string): Promise<string> {
-    const tempPath = path.join(__dirname, '../../temp/cover_temp.jpg');
-    const imgPath = await downloadFile(imgURL, tempPath);
+    const tempPath = path.join(__dirname, `../../temp/${md5(imgURL)}.jpg`);
+    await downloadFile(imgURL, tempPath);
     return new Promise<string>((resolve, reject) => {
-        average(imgPath, (err, color) => {
+        require('image-average-color')(tempPath, (err: Error, color: number[]) => {
             if (err) {
                 return reject(err);
             }
+            console.log(`unlink ${tempPath}\n${imgURL}`);
+            fs.unlinkSync(tempPath);
             const [red, green, blue] = color;
-            return `rgb(${red}, ${green}, ${blue})`;
+            return resolve(rgbToHex(red, green, blue));
         });
     })
+}
+
+
+function rgbToHex(r: number, g: number, b: number): string {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+
+    function componentToHex(c: number): string {
+        const hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
 }
 
 async function sleep(duration: number): Promise<void> {
@@ -101,8 +125,10 @@ export {
     getVolPageURL,
     getVolListPageURL,
     getVolIdFromURL,
+    getAverageColor,
     downloadFile,
     randomUA,
     constants,
+    handleImgSrc,
     sleep
 }
