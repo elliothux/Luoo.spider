@@ -1,8 +1,10 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import * as request from "request";
 import * as R from 'ramda';
 import {JSDOM} from "jsdom";
+import average from 'image-average-color';
 import * as constants from './constants';
-
 
 function requestHTML(url: string): Promise<string> {
     return new Promise<string>(((resolve, reject) => {
@@ -26,8 +28,28 @@ async function requestHTMLDOM(url: string): Promise<Document> {
     return htmlToDOM(html);
 }
 
-function getPageURL(page: number): string{
+function getVolListPageURL(page: number): string{
     return `http://www.luoo.net/tag/?p=${page}`;
+}
+
+function getVolPageURL(vol: number): string {
+    return `http://www.luoo.net/vol/index/${vol}`;
+}
+
+function getVolIdFromURL(link: string): number {
+    return parseInt(R.last(link.split('/vol/index/')))
+}
+
+function downloadFile(url: string, path: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        request
+            .get(url)
+            .on('error', reject)
+            .on('complete', (resp: request.Response, body: Buffer) => {
+                fs.writeFileSync(path, body);
+                resolve(path);
+            });
+    });
 }
 
 function randomUA(): string {
@@ -53,6 +75,20 @@ function randomUA(): string {
     return USER_AGENTS[0];
 }
 
+async function getAverageColor(imgURL: string): Promise<string> {
+    const tempPath = path.join(__dirname, '../../temp/cover_temp.jpg');
+    const imgPath = await downloadFile(imgURL, tempPath);
+    return new Promise<string>((resolve, reject) => {
+        average(imgPath, (err, color) => {
+            if (err) {
+                return reject(err);
+            }
+            const [red, green, blue] = color;
+            return `rgb(${red}, ${green}, ${blue})`;
+        });
+    })
+}
+
 async function sleep(duration: number): Promise<void> {
     return new Promise<void>((resolve) => {
        setTimeout(resolve, duration);
@@ -62,7 +98,10 @@ async function sleep(duration: number): Promise<void> {
 
 export {
     requestHTMLDOM,
-    getPageURL,
+    getVolPageURL,
+    getVolListPageURL,
+    getVolIdFromURL,
+    downloadFile,
     randomUA,
     constants,
     sleep

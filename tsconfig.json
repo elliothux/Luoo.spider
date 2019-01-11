@@ -8,7 +8,7 @@
     "sourceMap": true
   },
   "include":[
-    "./app"
+    "app/**/*"
   ],
   "exclude":[
 

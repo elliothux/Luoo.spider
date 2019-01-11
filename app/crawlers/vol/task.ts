@@ -1,7 +1,7 @@
 
 import * as R from 'ramda';
-import { VolTask, VolInfo, addVolTask, doneVolTask, isVolTaskExist } from '../../db/vol';
-import { requestHTMLDOM, getPageURL, sleep } from '../../utils';
+import { VolTask, addVolTask, isVolTaskExist } from '../../db/vol';
+import { requestHTMLDOM, getVolListPageURL, getVolIdFromURL, sleep } from '../../utils';
 import config from "../../../config";
 
 
@@ -15,7 +15,7 @@ async function getLastPage(): Promise<number> {
 
 // 传入Vol列表页的页码数，获取该页的 VolTasks
 async function getVolPageTasks(page: number): Promise<VolTask[]> {
-    const doc = await requestHTMLDOM(getPageURL(page));
+    const doc = await requestHTMLDOM(getVolListPageURL(page));
     const vols = Array.from(doc.querySelectorAll('.vol-list > .item'));
     return R.map(getVolTaskFromVolNode, vols);
 }
@@ -26,11 +26,14 @@ function getVolTaskFromVolNode(volNode: Element): VolTask {
     const info: string[] = a.innerHTML.split(' ');
     const vol = R.head(info).replace('vol.', '');
     const title: string = R.last(info).trim();
+    const link = a.getAttribute('href');
+    const id = getVolIdFromURL(link);
 
     return {
+        id,
         vol: parseInt(vol),
         title,
-        link: a.getAttribute('href'),
+        link,
         done: false
     } as VolTask;
 }
@@ -46,7 +49,7 @@ async function addVolTasks() {
         for (let i = 0; i< volTasks.length; i++) {
             const task = volTasks[i];
             // Task 已存在，停止遍历
-            if (await isVolTaskExist(task.vol)) {
+            if (await isVolTaskExist(task.id)) {
                 return;
             }
             await addVolTask(task);
@@ -56,13 +59,8 @@ async function addVolTasks() {
     }
 }
 
-// 启动
-async function launch() {
-    await addVolTasks();
-}
-
 
 export {
-    launch,
+    addVolTasks,
     getVolPageTasks
 }

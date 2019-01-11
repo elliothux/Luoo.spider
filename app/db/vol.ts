@@ -1,8 +1,10 @@
 
 import { MongoClient, Db, Collection } from 'mongodb';
 import config from '../../config';
+import { Track } from './track';
 
 interface VolTask {
+    id: number,
     vol: number,
     title: string,
     link: string,
@@ -10,7 +12,19 @@ interface VolTask {
 }
 
 interface VolInfo {
+    id: number,
     vol: number,
+    title: string,
+    link: string,
+    cover: string,
+    color: string,
+    author: string,
+    authorAvatar: string,
+    date: string,
+    desc: string,
+    tags: string[],
+    similarVols: number[],
+    tracks: Track[]
 }
 
 let DB: Db = null;
@@ -31,7 +45,7 @@ async function getVolTaskCollection(): Promise<Collection> {
     const db = await getDB();
     return db.collection('tasks');
 }
-async function addVolTask(taskInfo: VolInfo) {
+async function addVolTask(taskInfo: VolTask) {
     const collection = await getVolTaskCollection();
     return collection.insertOne(taskInfo);
 }
@@ -42,10 +56,15 @@ async function doneVolTask(vol: number) {
         { $set: { done: true } }
     );
 }
-async function isVolTaskExist(vol: number): Promise<boolean> {
+async function isVolTaskExist(id: number): Promise<boolean> {
     const collection = await getVolTaskCollection();
-    const count = await collection.countDocuments({ vol });
+    const count = await collection.countDocuments({ id });
     return count > 0;
+}
+
+async function getOneUnfinishedTask(): Promise<VolTask> {
+    const collection = await getVolTaskCollection();
+    return collection.findOne<VolTask>({ done: false });
 }
 
 export {
@@ -53,5 +72,6 @@ export {
     VolTask,
     addVolTask,
     doneVolTask,
-    isVolTaskExist
+    isVolTaskExist,
+    getOneUnfinishedTask
 }
