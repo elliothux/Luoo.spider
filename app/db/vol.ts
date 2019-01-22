@@ -31,7 +31,7 @@ let DB: Db = null;
 async function getDB(): Promise<Db> {
     if (DB) return DB;
     return new Promise<Db>(((resolve, reject) => {
-        const client = new MongoClient(config.DB_URL);
+        const client = new MongoClient(config.DB_URL, { useNewUrlParser: true });
         client.connect(function(err) {
             if (err) return reject(err);
             const db: Db = client.db(config.DB_NAME);
@@ -69,9 +69,9 @@ async function isVolTaskExist(id: number): Promise<boolean> {
     return count > 0;
 }
 
-async function getOneUnfinishedTask(): Promise<VolTask> {
+async function getUnfinishedTasks(): Promise<VolTask[]> {
     const collection = await getVolTaskCollection();
-    return collection.findOne<VolTask>({ done: false });
+    return collection.find<VolTask>({ done: false }).toArray();
 }
 
 async function getVolCollection(): Promise<Collection> {
@@ -89,7 +89,7 @@ export {
     addVolTask,
     doneVolTask,
     isVolTaskExist,
-    getOneUnfinishedTask,
+    getUnfinishedTasks,
     undoneVolTasks,
     saveVol
 }

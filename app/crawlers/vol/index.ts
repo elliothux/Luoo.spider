@@ -1,5 +1,5 @@
 import * as R from "ramda";
-import {VolTask, VolInfo, getOneUnfinishedTask, saveVol, doneVolTask, undoneVolTasks} from "../../db/vol";
+import {VolTask, VolInfo, getUnfinishedTasks, saveVol, doneVolTask, undoneVolTasks} from "../../db/vol";
 import {VolTrack} from '../../db/track';
 import {requestHTMLDOM, getVolIdFromURL, getAverageColor, handleImgSrc, sleep} from '../../utils';
 import { addVolTasks, getVolPageTasks } from './task';
@@ -101,15 +101,21 @@ async function getTrackInfoFromNode(trackNode: Element, volTask: VolTask): Promi
 }
 
 async function getVols() {
-    let task: VolTask;
-    while (task = await getOneUnfinishedTask()) {
+    const tasks: VolTask[] = await getUnfinishedTasks();
+    tasks.forEach(async task => {
         console.log(`get vol ${task.vol}`);
-        const volInfo = await getVolInfo(task);
+        let volInfo;
+        try {
+            volInfo = await getVolInfo(task);
+        } catch (e) {
+            console.error(`Get vol-${task.vol} failed.`, e);
+            return;
+        }
         await saveVol(volInfo);
         await doneVolTask(volInfo.id);
         console.log(`save vol ${volInfo.vol} ${volInfo.title}`);
         await sleep(3000);
-    }
+    });
 }
 
 // 启动

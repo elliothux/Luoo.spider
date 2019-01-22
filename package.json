@@ -4,6 +4,10 @@
   "main": "app/index.ts",
   "repository": "https://github.com/HuQingyang/Luoo.git",
   "author": "HuQingyang <i@do.codes>",
+  "scripts": {
+    "db:backup": "mongodump --db luoo --out ./db",
+    "db:restore": "mongorestore ./db/luoo"
+  },
   "license": "MIT",
   "dependencies": {
     "@types/jsdom": "^12.2.1",

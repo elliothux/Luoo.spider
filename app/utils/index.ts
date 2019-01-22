@@ -25,7 +25,6 @@ function htmlToDOM(html: string): Document {
 
 async function requestHTMLDOM(url: string): Promise<Document> {
     const html = await requestHTML(url);
-    require('fs').writeFileSync('temp.html', html);
     return htmlToDOM(html);
 }
 
@@ -95,8 +94,6 @@ async function getAverageColor(imgURL: string): Promise<string> {
             if (err) {
                 return reject(err);
             }
-            console.log(`unlink ${tempPath}\n${imgURL}`);
-            fs.unlinkSync(tempPath);
             const [red, green, blue] = color;
             return resolve(rgbToHex(red, green, blue));
         });
