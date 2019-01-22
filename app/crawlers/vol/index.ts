@@ -102,20 +102,21 @@ async function getTrackInfoFromNode(trackNode: Element, volTask: VolTask): Promi
 
 async function getVols() {
     const tasks: VolTask[] = await getUnfinishedTasks();
-    tasks.forEach(async task => {
+    for (let i = 0; i < tasks.length; i++) {
+        const task = tasks[i];
         console.log(`get vol ${task.vol}`);
         let volInfo;
         try {
             volInfo = await getVolInfo(task);
         } catch (e) {
-            console.error(`Get vol-${task.vol} failed.`, e);
-            return;
+            console.error(`Get vol-${task.vol} failed: `, e);
+            continue;
         }
         await saveVol(volInfo);
         await doneVolTask(volInfo.id);
         console.log(`save vol ${volInfo.vol} ${volInfo.title}`);
         await sleep(3000);
-    });
+    }
 }
 
 // 启动

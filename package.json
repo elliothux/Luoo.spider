@@ -5,7 +5,7 @@
   "repository": "https://github.com/HuQingyang/Luoo.git",
   "author": "HuQingyang <i@do.codes>",
   "scripts": {
-    "db:backup": "mongodump --db luoo --out ./db",
+    "db:backup": "rm -r ./db/luoo; mongodump --db luoo --out ./db",
     "db:restore": "mongorestore ./db/luoo"
   },
   "license": "MIT",
