@@ -24,8 +24,12 @@ function htmlToDOM(html: string): Document {
 }
 
 async function requestHTMLDOM(url: string): Promise<Document> {
-    const html = await requestHTML(url);
-    return htmlToDOM(html);
+    try {
+        const html = await requestHTML(url);
+        return htmlToDOM(html);
+    } catch (e) {
+        console.error('Request HTML failed: ', e);
+    }
 }
 
 function getVolListPageURL(page: number): string{
@@ -116,6 +120,16 @@ async function sleep(duration: number): Promise<void> {
     });
 }
 
+function cleanTemp() {
+    const tempPath = path.join(__dirname, '../../temp');
+    R.map((p) => {
+        if (fs.existsSync(p)) {
+            fs.unlinkSync(p);
+            console.log(`clean file: ${p}`);
+        }
+    }, fs.readdirSync(tempPath).map(i => path.join(tempPath, i)));
+}
+
 
 export {
     requestHTMLDOM,
@@ -127,5 +141,6 @@ export {
     randomUA,
     constants,
     handleImgSrc,
-    sleep
+    sleep,
+    cleanTemp
 }
