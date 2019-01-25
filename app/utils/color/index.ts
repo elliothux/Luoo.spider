@@ -59,11 +59,13 @@ async function getAverageColor(filePath: string): Promise<string> {
     }
 }
 
-function close() {
+async function close() {
     if (!browser) {
         return;
     }
-    return browser.close();
+    await browser.close();
+    browser = null;
+    page = null;
 }
 
 function base64Encode(filePath: string): string {

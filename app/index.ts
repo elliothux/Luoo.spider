@@ -9,11 +9,18 @@ async function launch() {
     onExit(close);
     cleanTemp();
     setInterval(cleanTemp, 1000 * 60 * 60);
-    try {
-        await vol.launch();
-    } catch (e) {
-        console.error(e);
-        process.exit(0);
+    return init();
+
+    async function init() {
+        try {
+            await vol.launch();
+        } catch (e) {
+            console.error(e);
+            await close();
+            console.log('restart 10s later...');
+            setTimeout(init, 10000);
+            // process.exit(0);
+        }
     }
 }
 

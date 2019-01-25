@@ -8,9 +8,15 @@ import * as constants from './constants';
 import { getAverageColor as getAverageColorFromPath } from './color';
 
 
-function requestHTML(url: string): Promise<string> {
+function requestHTML(uri: string): Promise<string> {
     return new Promise<string>(((resolve, reject) => {
-        request(url, function (error, response, body) {
+        const options = {
+            uri,
+            headers: {
+                'User-Agent': randomUA()
+            }
+        };
+        request(options, function (error, response, body) {
             if (error || !response || response.statusCode !== 200) {
                 return reject(error);
             }
@@ -45,10 +51,19 @@ function getVolIdFromURL(link: string): number {
     return parseInt(R.last(link.split('/vol/index/')))
 }
 
-function downloadFile(url: string, path: string): Promise<void> {
+function downloadFile(uri: string, path: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
         const stream = fs.createWriteStream(path);
-        request(url)
+        const options = {
+            uri,
+            headers: {
+                'User-Agent': randomUA()
+            }
+        };
+        if (!uri) {
+            throw `URL null: ${uri}`;
+        }
+        request(options)
             .pipe(stream)
             .on('close', (err: Error) => {
                 if (err) {

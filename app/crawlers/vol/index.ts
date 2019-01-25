@@ -110,12 +110,13 @@ async function getVols() {
             volInfo = await getVolInfo(task);
         } catch (e) {
             console.error(`Get vol-${task.vol} failed: `, e);
-            continue;
+            throw e;
+            // continue;
         }
         await saveVol(volInfo);
         await doneVolTask(volInfo.id);
         console.log(`save vol ${volInfo.vol} ${volInfo.title}`);
-        await sleep(3000);
+        await sleep(Math.min(2, Math.random() * 6) * 1000);
     }
 }
 
