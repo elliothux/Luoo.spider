@@ -1,12 +1,12 @@
 {
-  "name": "Luoo.Spider",
+  "name": "luoo.spider",
   "version": "1.0.0",
   "main": "app/index.ts",
   "repository": "https://github.com/HuQingyang/Luoo.git",
   "author": "HuQingyang <i@do.codes>",
   "scripts": {
     "db:backup": "rm -r ./db/luoo; mongodump --db luoo --out ./db",
-    "db:restore": "mongorestore ./db/luoo"
+    "db:restore": " mongorestore --verbose ./db"
   },
   "license": "MIT",
   "dependencies": {
