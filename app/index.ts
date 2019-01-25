@@ -1,16 +1,20 @@
 
 import * as vol from './crawlers/vol';
-import { cleanTemp } from './utils';
+import { cleanTemp, onExit } from './utils';
+import { close } from './utils/color';
 import {setInterval} from "timers";
 
-process.on('uncaughtException', function (err) {
-    console.log('error','UNCAUGHT EXCEPTION - keeping process alive:',  err);
-});
 
 async function launch() {
+    onExit(close);
     cleanTemp();
     setInterval(cleanTemp, 1000 * 60 * 60);
-    await vol.launch();
+    try {
+        await vol.launch();
+    } catch (e) {
+        console.error(e);
+        process.exit(0);
+    }
 }
 
 

@@ -5,6 +5,7 @@ import * as request from "request";
 import * as R from 'ramda';
 import {JSDOM} from "jsdom";
 import * as constants from './constants';
+import { getAverageColor as getAverageColorFromPath } from './color';
 
 
 function requestHTML(url: string): Promise<string> {
@@ -59,6 +60,12 @@ function downloadFile(url: string, path: string): Promise<void> {
     });
 }
 
+async function getAverageColor(imgURL: string): Promise<string> {
+    const tempPath = path.join(__dirname, `../../temp/${md5(imgURL)}.jpg`);
+    await downloadFile(imgURL, tempPath);
+    return getAverageColorFromPath(tempPath);
+}
+
 function handleImgSrc(src: string): string {
     return R.head(src.split('!/'));
 }
@@ -90,30 +97,6 @@ function md5(content: string): string {
     return crypto.createHash('md5').update(content).digest('hex');
 }
 
-async function getAverageColor(imgURL: string): Promise<string> {
-    const tempPath = path.join(__dirname, `../../temp/${md5(imgURL)}.jpg`);
-    await downloadFile(imgURL, tempPath);
-    return new Promise<string>((resolve, reject) => {
-        require('image-average-color')(tempPath, (err: Error, color: number[]) => {
-            if (err) {
-                return reject(err);
-            }
-            const [red, green, blue] = color;
-            return resolve(rgbToHex(red, green, blue));
-        });
-    })
-}
-
-
-function rgbToHex(r: number, g: number, b: number): string {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-
-    function componentToHex(c: number): string {
-        const hex = c.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
-    }
-}
-
 async function sleep(duration: number): Promise<void> {
     return new Promise<void>((resolve) => {
        setTimeout(resolve, duration);
@@ -130,6 +113,14 @@ function cleanTemp() {
     }, fs.readdirSync(tempPath).map(i => path.join(tempPath, i)));
 }
 
+function onExit(exitHandler: () => any) {
+    process.on('exit', exitHandler.bind(null,{cleanup:true}));
+    process.on('SIGINT', exitHandler.bind(null, {exit:true}));
+    process.on('SIGUSR1', exitHandler.bind(null, {exit:true}));
+    process.on('SIGUSR2', exitHandler.bind(null, {exit:true}));
+    process.on('uncaughtException', exitHandler.bind(null, {exit:true}));
+}
+
 
 export {
     requestHTMLDOM,
@@ -142,5 +133,6 @@ export {
     constants,
     handleImgSrc,
     sleep,
-    cleanTemp
+    cleanTemp,
+    onExit
 }
