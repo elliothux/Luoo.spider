@@ -37,10 +37,15 @@ async function getVolInfo(volTask: VolTask): Promise<VolInfo> {
     );
 
     const tracksNode = Array.from(doc.querySelectorAll('.vol-tracklist li.track-item'));
-    const tracks = await Promise.all<VolTrack>(R.map(
-        async (trackNode) => await getTrackInfoFromNode(trackNode, volTask),
-        tracksNode
-    ));
+    const tracks = await Promise.all<VolTrack>(
+        R.filter(
+            i => !!i,
+            R.map(
+                async (trackNode) => await getTrackInfoFromNode(trackNode, volTask),
+                tracksNode
+            )
+        )
+    );
 
     return {
         id,
@@ -77,6 +82,10 @@ async function getTrackInfoFromNode(trackNode: Element, volTask: VolTask): Promi
         trackNode.querySelector('.btn-action-like')
             .getAttribute('data-id')
     );
+    // 去除脏数据
+    if (isNaN(id)) {
+        return null;
+    }
     const player = trackNode.querySelector('.player-wrapper');
     const name = player.querySelector('p.name').innerHTML.trim();
     const artist = player.querySelector('p.artist').innerHTML

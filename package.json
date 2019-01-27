@@ -6,7 +6,8 @@
   "author": "HuQingyang <i@do.codes>",
   "scripts": {
     "db:backup": "rm -r ./db/luoo; mongodump --db luoo --out ./db",
-    "db:restore": " mongorestore --verbose ./db"
+    "db:restore": " mongorestore --verbose ./db",
+    "debug": "node --inspect -r /usr/local/lib/node_modules/ts-node/register ./app"
   },
   "license": "MIT",
   "dependencies": {
