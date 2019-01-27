@@ -27,7 +27,7 @@ function requestHTML(uri: string): Promise<string> {
 
 function htmlToDOM(html: string): Document {
     const { window: { document } } = new JSDOM(html);
-    fs.writeFileSync('temp.html', html);
+    // fs.writeFileSync('temp.html', html);
     return document;
 }
 

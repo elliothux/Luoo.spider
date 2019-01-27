@@ -65,15 +65,8 @@ async function getVolInfo(volTask: VolTask): Promise<VolInfo> {
 }
 
 function formatVolDesc(doc: Document): string {
-    const desc = Array.from(doc.querySelectorAll('.vol-desc > p'));
-    return R.map<Element, string>(
-        (i: Element): string => {
-            if (i.textContent) return i.textContent;
-            if (i.innerHTML.trim() === '<br>') return '\n';
-            return '';
-        },
-        desc
-    ).join('\n');
+    const { innerHTML: desc } = doc.querySelector('.vol-desc');
+    return desc.replace(/<script>.*<\/script>/, '');
 }
 async function getTrackInfoFromNode(trackNode: Element, volTask: VolTask): Promise<VolTrack> {
     const { vol } = volTask;
