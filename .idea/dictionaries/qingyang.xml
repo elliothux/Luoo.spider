@@ -4,6 +4,7 @@
       <w>clearfix</w>
       <w>crypto</w>
       <w>luoo</w>
+      <w>mkdirp</w>
       <w>networkidle</w>
       <w>paginator</w>
       <w>scrapy</w>
