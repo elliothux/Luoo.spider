@@ -86,7 +86,8 @@ async function getTrackInfoFromNode(trackNode: Element, volTask: VolTask): Promi
     const album = player.querySelector('p.album').innerHTML
         .replace('Album:', '').trim();
     const cover = handleImgSrc(player.querySelector('img.cover').getAttribute('src').trim());
-    const color = await getAverageColor(cover);
+    // const color = await getAverageColor(cover);
+    const color = '';
     const order = trackNode.querySelector('.trackname.btn-play').innerHTML.slice(0, 2);
     const url = `http://mp3-cdn2.luoo.net/low/luoo/radio${vol}/${order}.mp3`;
 
