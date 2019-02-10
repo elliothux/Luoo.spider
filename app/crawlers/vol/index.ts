@@ -13,7 +13,8 @@ import {
   getVolIdFromURL,
   getAverageColor,
   handleVolImgSrc,
-  sleep
+  sleep,
+  formatDesc
 } from "../../utils";
 import { addVolTasks, getVolPageTasks } from "./task";
 
@@ -41,7 +42,7 @@ async function getVolInfo(volTask: VolTask): Promise<VolInfo> {
       .trim()
   );
   const date = doc.querySelector(".vol-date").innerHTML.trim();
-  const desc = formatVolDesc(doc);
+  const desc = formatDesc(doc.querySelector(".vol-desc").innerHTML);
   const tags = R.map<Element, string>(
     (i: Element) => i.innerHTML.replace("#", "").trim(),
     Array.from(doc.querySelectorAll(".vol-tag-item"))
@@ -82,13 +83,6 @@ async function getVolInfo(volTask: VolTask): Promise<VolInfo> {
   } as VolInfo;
 }
 
-function formatVolDesc(doc: Document): string {
-  const { innerHTML: desc } = doc.querySelector(".vol-desc");
-  return desc
-    .replace(/<script>.*<\/script>/, "")
-    .replace(/style="*?"/g, "")
-    .replace(/href="*?"/g, "");
-}
 async function getTrackInfoFromNode(
   trackNode: Element,
   volTask: VolTask

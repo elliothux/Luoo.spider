@@ -144,6 +144,14 @@ function onExit(exitHandler: () => any) {
   process.on("uncaughtException", exitHandler.bind(null, { exit: true }));
 }
 
+function formatDesc(desc: string): string {
+  return desc
+    .replace(/<script>.*<\/script>/, "")
+    .replace(/style="*?"/g, "")
+    .replace(/href="*?"/g, "")
+    .trim();
+}
+
 export {
   requestHTMLDOM,
   getVolPageURL,
@@ -157,5 +165,6 @@ export {
   handleSingleImgSrc,
   sleep,
   cleanTemp,
-  onExit
+  onExit,
+  formatDesc
 };
