@@ -8,7 +8,7 @@ import {
   handleSingleImgSrc,
   formatDesc
 } from "../../utils";
-import { Single } from "../../db/single";
+import { isSingleExist, saveSingle, Single } from "../../db/single";
 
 const URL = "http://www.luoo.net/musician";
 
@@ -131,9 +131,23 @@ function getInfoFromMeta(meta: HTMLElement): MetaInfo {
 
 async function launch() {
   const pageCount = await getPageCount();
-  for (let i = pageCount; i > 0; i--) {
-    const singles = await getSinglesFromPage(i);
-    console.log(singles);
+  for (let i = 1; i <= pageCount; i++) {
+    console.log(`Get singles of page ${i}, total ${pageCount}.`);
+    let singles;
+    try {
+      singles = await getSinglesFromPage(i);
+    } catch (e) {
+      console.error(`Get singles of page ${i} failed: `, e);
+      throw e;
+    }
+    for (let single of singles) {
+      if (await isSingleExist(single.id)) {
+        return console.log("Single exist. Task Done.");
+      }
+      await saveSingle(single);
+      console.log(`Save single ${single.name} of page ${i}.`);
+    }
+    await sleep(Math.min(2, Math.random() * 6) * 1000);
   }
 }
 
