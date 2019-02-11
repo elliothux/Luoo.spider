@@ -98,7 +98,7 @@ interface MetaInfo {
   artist: string;
   desc: string;
   recommender: string;
-  date: string;
+  date: number;
   url: string;
 }
 
@@ -108,16 +108,17 @@ function getInfoFromMeta(meta: HTMLElement): MetaInfo {
   const artist = meta.querySelector("p.performer").innerHTML.trim();
   const desc = formatDesc(meta.querySelector("p.remark").innerHTML);
   const remarkInfo = meta.querySelector("p.date").innerHTML.trim();
-  const [recommender, date] = remarkInfo
+  const [recommender, rawDate] = remarkInfo
     .replace("推荐人", "")
     .replace("：", "")
     .replace(":", "")
     .split("・")
     .map(i => i.trim());
-  const url = `http://mp3-cdn2.luoo.net/low/chinese/${date.replace(
-    /-/g,
-    ""
-  )}.mp3`;
+  const date = parseInt(rawDate.replace(
+      /-/g,
+      ""
+  ));
+  const url = `http://mp3-cdn2.luoo.net/low/chinese/${date}.mp3`;
   return {
     id,
     name,

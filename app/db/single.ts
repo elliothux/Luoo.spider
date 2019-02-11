@@ -1,5 +1,5 @@
-import {Collection} from "mongodb";
-import {getDB} from "./utils";
+import { Collection } from "mongodb";
+import { getDB } from "./utils";
 
 interface Single {
   id: number;
@@ -7,26 +7,26 @@ interface Single {
   artist: string;
   cover: string;
   desc: string;
-  date: string;
+  date: number;
   recommender: string;
   url: string;
   color: string;
 }
 
 async function getSingleCollection(): Promise<Collection> {
-    const db = await getDB();
-    return db.collection("singles");
+  const db = await getDB();
+  return db.collection("singles");
 }
 
-async function isSingleExist(date: string): Promise<Boolean> {
-    const collection = await getSingleCollection();
-    const count = await collection.countDocuments({ date });
-    return count > 0;
+async function isSingleExist(date: number): Promise<Boolean> {
+  const collection = await getSingleCollection();
+  const count = await collection.countDocuments({ date });
+  return count > 0;
 }
 
 async function saveSingle(single: Single) {
-    const collection = await getSingleCollection();
-    return collection.insertOne(single);
+  const collection = await getSingleCollection();
+  return collection.insertOne(single);
 }
 
 export { Single, saveSingle, isSingleExist };
