@@ -18,9 +18,9 @@ async function getSingleCollection(): Promise<Collection> {
     return db.collection("singles");
 }
 
-async function isSingleExist(id: number): Promise<Boolean> {
+async function isSingleExist(date: string): Promise<Boolean> {
     const collection = await getSingleCollection();
-    const count = await collection.countDocuments({ id });
+    const count = await collection.countDocuments({ date });
     return count > 0;
 }
 

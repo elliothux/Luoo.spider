@@ -25,7 +25,7 @@ async function getSinglesFromPage(page: number): Promise<Single[]> {
   const doc = await requestHTMLDOM(url);
   const bannerSingle: Single = await getBannerSingle(doc);
   const otherSingles: Single[] = await getOtherSingles(doc);
-  return [bannerSingle, ...otherSingles];
+  return [bannerSingle, ...otherSingles].reverse();
 }
 
 async function getBannerSingle(doc: Document): Promise<Single> {
@@ -141,7 +141,7 @@ async function launch() {
       throw e;
     }
     for (let single of singles) {
-      if (await isSingleExist(single.id)) {
+      if (await isSingleExist(single.date)) {
         return console.log("Single exist. Task Done.");
       }
       await saveSingle(single);
