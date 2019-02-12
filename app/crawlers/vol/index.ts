@@ -2,12 +2,12 @@ import * as R from "ramda";
 import {
   VolTask,
   VolInfo,
+  VolTrack,
   getUnfinishedTasks,
   saveVol,
   doneVolTask,
   undoneVolTasks
 } from "../../db/vol";
-import { VolTrack } from "../../db/track";
 import {
   requestHTMLDOM,
   getVolIdFromURL,

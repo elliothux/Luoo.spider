@@ -1,7 +1,7 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import config from "../../config";
-import { VolTrack } from "./track";
 import {getDB} from './utils';
+
 
 interface VolTask {
   id: number;
@@ -27,6 +27,16 @@ interface VolInfo {
   tracks: VolTrack[];
 }
 
+export interface VolTrack {
+    id: number;
+    vol: number;
+    name: string;
+    artist: string;
+    album: string;
+    cover: string;
+    url: string;
+    color: string;
+}
 
 async function getVolTaskCollection(): Promise<Collection> {
   const db = await getDB();
