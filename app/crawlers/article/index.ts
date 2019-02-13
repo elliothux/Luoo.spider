@@ -68,13 +68,23 @@ async function getSingleTaskFromSingleNode(
   node: HTMLElement
 ): Promise<ArticleTask> {
   const link = node.querySelector("a.title").getAttribute("href");
+  const id = parseInt(R.last(link.split("/")));
   const cover = handleSingleImgSrc(
     node.querySelector("img.cover").getAttribute("src")
   );
-  const id = parseInt(R.last(link.split("/")));
+
+  const introNode = node.querySelector('div.subscribe');
+  let intro: string;
+  if (introNode) {
+    intro = introNode.textContent.trim();
+  } else {
+    intro = node.querySelector('.meta > p.content').textContent.trim()
+  }
+
   return {
     id,
     cover,
+    intro,
     done: false
   } as ArticleTask;
 }
@@ -82,10 +92,12 @@ async function getSingleTaskFromSingleNode(
 async function getArticleInfo(task: ArticleTask): Promise<Article> {
   const url = `http://www.luoo.net/essay/${task.id}`;
   const doc = await requestHTMLDOM(url);
+
   const color = await getAverageColor(task.cover);
   const title = doc.querySelector("h1.essay-title").innerHTML.trim();
   const metaInfo = doc.querySelector("p.essay-meta").textContent.trim();
   const desc = doc.querySelector("div.essay-content").innerHTML.trim();
+
   let author;
   let authorAvatar;
   const multiAuthors = doc.querySelector("div.multi-authors");
@@ -117,6 +129,7 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
     title,
     metaInfo,
     cover: task.cover,
+    intro: task.intro,
     color,
     url,
     desc,

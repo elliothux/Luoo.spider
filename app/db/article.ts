@@ -4,6 +4,7 @@ import { getDB } from "./utils";
 export interface ArticleTask {
   id: number;
   cover: string;
+  intro: string,
   done: boolean;
 }
 
@@ -11,6 +12,7 @@ export interface Article {
   id: number;
   title: string;
   cover: string;
+  intro: string;
   color: string,
   metaInfo: string;
   url: string;
