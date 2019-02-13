@@ -3,7 +3,7 @@ import {
   requestHTMLDOM,
   handleVolImgSrc,
   sleep,
-  handleSingleImgSrc
+  handleSingleImgSrc, getAverageColor
 } from "../../utils";
 import {
   addArticleTask,
@@ -82,6 +82,7 @@ async function getSingleTaskFromSingleNode(
 async function getArticleInfo(task: ArticleTask): Promise<Article> {
   const url = `http://www.luoo.net/essay/${task.id}`;
   const doc = await requestHTMLDOM(url);
+  const color = await getAverageColor(task.cover);
   const title = doc.querySelector("h1.essay-title").innerHTML.trim();
   const metaInfo = doc.querySelector("p.essay-meta").textContent.trim();
   const desc = doc.querySelector("div.essay-content").innerHTML.trim();
@@ -116,6 +117,7 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
     title,
     metaInfo,
     cover: task.cover,
+    color,
     url,
     desc,
     author,

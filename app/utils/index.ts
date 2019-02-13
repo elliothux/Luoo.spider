@@ -67,7 +67,7 @@ function downloadFile(uri: string, path: string): Promise<void> {
     if (!uri) {
       throw `URL null: ${uri}`;
     }
-    request(options)
+    proxiedRequest(options)
       .pipe(stream)
       .on("close", (err: Error) => {
         if (err) {

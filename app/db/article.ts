@@ -11,6 +11,7 @@ export interface Article {
   id: number;
   title: string;
   cover: string;
+  color: string,
   metaInfo: string;
   url: string;
   desc: string;
