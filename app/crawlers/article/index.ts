@@ -4,7 +4,7 @@ import {
   handleVolImgSrc,
   sleep,
   handleSingleImgSrc,
-  getAverageColor
+  getAverageColor, formatDesc
 } from "../../utils";
 import {
   addArticleTask,
@@ -96,7 +96,7 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
 
   const color = await getAverageColor(task.cover);
   const title = doc.querySelector("h1.essay-title").innerHTML.trim();
-  const desc = doc.querySelector("div.essay-content").innerHTML.trim();
+  const desc = formatDesc(doc.querySelector("div.essay-content").innerHTML.trim());
 
   const metaInfos = doc
     .querySelector("p.essay-meta")
