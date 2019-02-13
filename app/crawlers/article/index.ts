@@ -122,7 +122,7 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
     desc,
     author,
     authorAvatar,
-    tracks
+    tracks: tracks.filter(i => !!i)
   } as Article;
 }
 
@@ -135,6 +135,9 @@ async function getArticleTrack(
   const id = parseInt(
     node.querySelector("a.btn-action-share").getAttribute("data-id")
   );
+  if (isNaN(id)) {
+    return null;
+  }
   const player = node.querySelector(".player-wrapper");
   const name = player.querySelector("p.name").innerHTML.trim();
   const artist = player

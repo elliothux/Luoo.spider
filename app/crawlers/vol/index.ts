@@ -57,13 +57,10 @@ async function getVolInfo(volTask: VolTask): Promise<VolInfo> {
     doc.querySelectorAll(".vol-tracklist li.track-item")
   );
   const tracks = await Promise.all<VolTrack>(
-    R.filter(
-      i => !!i,
       R.map(
         async trackNode => await getTrackInfoFromNode(trackNode, volTask),
         tracksNode
       )
-    )
   );
 
   return {
@@ -79,7 +76,7 @@ async function getVolInfo(volTask: VolTask): Promise<VolInfo> {
     desc,
     tags,
     similarVols,
-    tracks
+    tracks: tracks.filter(i => !!i)
   } as VolInfo;
 }
 
