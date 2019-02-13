@@ -3,7 +3,8 @@ import {
   requestHTMLDOM,
   handleVolImgSrc,
   sleep,
-  handleSingleImgSrc, getAverageColor
+  handleSingleImgSrc,
+  getAverageColor
 } from "../../utils";
 import {
   addArticleTask,
@@ -73,12 +74,12 @@ async function getSingleTaskFromSingleNode(
     node.querySelector("img.cover").getAttribute("src")
   );
 
-  const introNode = node.querySelector('div.subscribe');
+  const introNode = node.querySelector("div.subscribe");
   let intro: string;
   if (introNode) {
     intro = introNode.textContent.trim();
   } else {
-    intro = node.querySelector('.meta > p.content').textContent.trim()
+    intro = node.querySelector(".meta > p.content").textContent.trim();
   }
 
   return {
@@ -95,8 +96,14 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
 
   const color = await getAverageColor(task.cover);
   const title = doc.querySelector("h1.essay-title").innerHTML.trim();
-  const metaInfo = doc.querySelector("p.essay-meta").textContent.trim();
   const desc = doc.querySelector("div.essay-content").innerHTML.trim();
+
+  const metaInfos = doc
+    .querySelector("p.essay-meta")
+    .textContent.trim()
+    .split("・");
+  const date = metaInfos.pop();
+  const metaInfo = metaInfos.join("・");
 
   let author;
   let authorAvatar;
@@ -128,6 +135,7 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
     id: task.id,
     title,
     metaInfo,
+    date,
     cover: task.cover,
     intro: task.intro,
     color,

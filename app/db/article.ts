@@ -15,6 +15,7 @@ export interface Article {
   intro: string;
   color: string,
   metaInfo: string;
+  date: string;
   url: string;
   desc: string;
   author: string;
@@ -73,6 +74,23 @@ async function saveArticle(article: Article) {
   const collection = await getArticleCollection();
   return collection.insertOne(article);
 }
+
+// (async () => {
+//     const collection = await getArticleCollection();
+//     const arts = await collection.find({}).toArray() as Article[];
+//     for (let a of arts) {
+//         const metaInfos = a.metaInfo
+//             .split("・");
+//         const date = metaInfos.pop();
+//         const metaInfo = metaInfos.join("・");
+//       await collection.updateOne({ id: a.id}, {
+//         $set: {
+//             date,
+//             metaInfo
+//         }
+//       })
+//     }
+// })().then(() => process.exit()).catch(e => console.error(e) || process.exit());
 
 export {
   addArticleTask,
