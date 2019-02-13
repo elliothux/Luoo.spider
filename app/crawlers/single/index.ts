@@ -56,7 +56,6 @@ async function getBannerSingle(doc: Document): Promise<Single> {
 
 async function getOtherSingles(doc: Document): Promise<Single[]> {
   const singles: Single[] = [];
-  debugger;
   const nodes = Array.from(
     doc.querySelectorAll(".musician-list > .item")
   ) as HTMLElement[];

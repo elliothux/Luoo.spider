@@ -85,10 +85,18 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
   const title = doc.querySelector("h1.essay-title").innerHTML.trim();
   const metaInfo = doc.querySelector("p.essay-meta").textContent.trim();
   const desc = doc.querySelector("div.essay-content").innerHTML.trim();
-  const author = doc.querySelector("a.essay-author-name").textContent.trim();
-  const authorAvatar = doc
-    .querySelector("div.essay-author img.avatar")
-    .getAttribute("src");
+  let author;
+  let authorAvatar;
+  const multiAuthors = doc.querySelector('div.multi-authors');
+  if (multiAuthors) {
+      author = multiAuthors.querySelector('a.avatar-wrapper').textContent.trim();
+      authorAvatar = handleVolImgSrc(multiAuthors.querySelector('a.avatar-wrapper img.avatar').getAttribute('src'));
+  } else {
+      author = doc.querySelector("a.essay-author-name").textContent.trim();
+      authorAvatar = doc
+          .querySelector("div.essay-author img.avatar")
+          .getAttribute("src");
+  }
 
   const tracksNode = Array.from(
     doc.querySelectorAll(".essay-music .track-item")
@@ -168,7 +176,7 @@ async function getArticles() {
     try {
       articleInfo = await getArticleInfo(task);
     } catch (e) {
-      console.error(`Get article-${articleInfo.id} failed: `, e);
+      console.error(`Get article-${task.id} failed: `, e);
       throw e;
     }
     await saveArticle(articleInfo);
