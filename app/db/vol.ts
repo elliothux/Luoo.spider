@@ -1,7 +1,6 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import config from "../../config";
-import {getDB} from './utils';
-
+import { getDB } from "./utils";
 
 interface VolTask {
   id: number;
@@ -28,14 +27,14 @@ interface VolInfo {
 }
 
 export interface VolTrack {
-    id: number;
-    vol: number;
-    name: string;
-    artist: string;
-    album: string;
-    cover: string;
-    url: string;
-    color: string;
+  id: number;
+  vol: number;
+  name: string;
+  artist: string;
+  album: string;
+  cover: string;
+  url: string;
+  color: string;
 }
 
 async function getVolTaskCollection(): Promise<Collection> {

@@ -113,10 +113,7 @@ function getInfoFromMeta(meta: HTMLElement): MetaInfo {
     .replace(":", "")
     .split("・")
     .map(i => i.trim());
-  const date = parseInt(rawDate.replace(
-      /-/g,
-      ""
-  ));
+  const date = parseInt(rawDate.replace(/-/g, ""));
   const url = `http://mp3-cdn2.luoo.net/low/chinese/${date}.mp3`;
   return {
     id,

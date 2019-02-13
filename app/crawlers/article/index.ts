@@ -87,15 +87,19 @@ async function getArticleInfo(task: ArticleTask): Promise<Article> {
   const desc = doc.querySelector("div.essay-content").innerHTML.trim();
   let author;
   let authorAvatar;
-  const multiAuthors = doc.querySelector('div.multi-authors');
+  const multiAuthors = doc.querySelector("div.multi-authors");
   if (multiAuthors) {
-      author = multiAuthors.querySelector('a.avatar-wrapper').textContent.trim();
-      authorAvatar = handleVolImgSrc(multiAuthors.querySelector('a.avatar-wrapper img.avatar').getAttribute('src'));
+    author = multiAuthors.querySelector("a.avatar-wrapper").textContent.trim();
+    authorAvatar = handleVolImgSrc(
+      multiAuthors
+        .querySelector("a.avatar-wrapper img.avatar")
+        .getAttribute("src")
+    );
   } else {
-      author = doc.querySelector("a.essay-author-name").textContent.trim();
-      authorAvatar = doc
-          .querySelector("div.essay-author img.avatar")
-          .getAttribute("src");
+    author = doc.querySelector("a.essay-author-name").textContent.trim();
+    authorAvatar = doc
+      .querySelector("div.essay-author img.avatar")
+      .getAttribute("src");
   }
 
   const tracksNode = Array.from(

@@ -10,9 +10,9 @@ export interface ArticleTask {
 export interface Article {
   id: number;
   title: string;
-  cover: string,
+  cover: string;
   metaInfo: string;
-  url: string,
+  url: string;
   desc: string;
   author: string;
   authorAvatar: string;
@@ -21,7 +21,7 @@ export interface Article {
 
 export interface ArticleTrack {
   id: number;
-  articleId: number,
+  articleId: number;
   name: string;
   artist: string;
   album: string;
