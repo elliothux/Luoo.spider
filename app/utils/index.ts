@@ -7,6 +7,9 @@ import { JSDOM } from "jsdom";
 import * as constants from "./constants";
 import { getAverageColor as getAverageColorFromPath } from "./color";
 
+
+const proxiedRequest = request.defaults({proxy: "http://127.0.0.1:8899"});
+
 function requestHTML(uri: string): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     const options = {
@@ -15,7 +18,7 @@ function requestHTML(uri: string): Promise<string> {
         "User-Agent": randomUA()
       }
     };
-    request(options, function(error, response, body) {
+    proxiedRequest(options, function(error, response, body) {
       if (error || !response || response.statusCode !== 200) {
         return reject(error);
       }

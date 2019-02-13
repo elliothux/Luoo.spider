@@ -3,12 +3,14 @@ import { getDB } from "./utils";
 
 export interface ArticleTask {
   id: number;
+  cover: string;
   done: boolean;
 }
 
 export interface Article {
   id: number;
   title: string;
+  cover: string,
   metaInfo: string;
   url: string,
   desc: string;
