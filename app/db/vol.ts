@@ -39,7 +39,7 @@ export interface VolTrack {
 
 async function getVolTaskCollection(): Promise<Collection> {
   const db = await getDB();
-  return db.collection("tasks");
+  return db.collection("vol-tasks");
 }
 async function addVolTask(taskInfo: VolTask) {
   const collection = await getVolTaskCollection();
