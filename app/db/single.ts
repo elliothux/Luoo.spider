@@ -29,4 +29,4 @@ async function saveSingle(single: Single) {
   return collection.insertOne(single);
 }
 
-export { Single, saveSingle, isSingleExist };
+export { Single, getSingleCollection, saveSingle, isSingleExist };

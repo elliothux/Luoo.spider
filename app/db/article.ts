@@ -93,6 +93,7 @@ async function saveArticle(article: Article) {
 // })().then(() => process.exit()).catch(e => console.error(e) || process.exit());
 
 export {
+  getArticleCollection,
   addArticleTask,
   doneArticleTask,
   undoneArticleTasks,

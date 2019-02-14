@@ -1,5 +1,4 @@
 import {requestData, requestJson} from "../../utils";
-import {Lyrics} from "../../utils/lyric-parser";
 
 interface Params {
   name: string;
@@ -15,14 +14,28 @@ async function getLyricFromGecimi(params: Params) {
   }
 }
 
-(async () => {
-    await getLyricFromGecimi({
-        name: '海阔天空',
-        artist: 'Beyond'
-    });
-})()
-  .then(() => process.exit(0))
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
-  });
+function getLyric(info: Params) {
+    return getLyricFromGecimi(info)
+}
+
+async function launch() {
+    
+}
+
+// (async () => {
+//     await getLyricFromGecimi({
+//         name: '海阔天空',
+//         artist: 'Beyond'
+//     });
+// })()
+//   .then(() => process.exit(0))
+//   .catch(e => {
+//     console.error(e);
+//     process.exit(1);
+//   });
+
+
+export {
+    launch,
+    getLyric
+}

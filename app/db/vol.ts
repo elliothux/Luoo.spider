@@ -76,6 +76,7 @@ async function saveVol(vol: VolInfo) {
 export {
   VolInfo,
   VolTask,
+  getVolCollection,
   addVolTask,
   doneVolTask,
   isVolTaskExist,

@@ -5,7 +5,7 @@
   "repository": "https://github.com/HuQingyang/Luoo.git",
   "author": "HuQingyang <i@do.codes>",
   "scripts": {
-    "run:netease-api": "PORT=4000 node ./netease-api/app.js",
+    "run:netease-api": "proxy=http:127.0.0.1:8899 https_proxy=http:127.0.0.1:8899 PORT=4000 node ./netease-api/app.js",
     "db:backup": "rm -r ./db/luoo; mongodump --db luoo --out ./db",
     "db:restore": "mongorestore --verbose ./db",
     "debug": "node --inspect -r /usr/local/lib/node_modules/ts-node/register ./app"
