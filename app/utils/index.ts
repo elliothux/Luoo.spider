@@ -7,7 +7,8 @@ import { JSDOM } from "jsdom";
 import * as constants from "./constants";
 import { getAverageColor as getAverageColorFromPath } from "./color";
 
-const proxiedRequest = request.defaults({ proxy: "http://127.0.0.1:8899" });
+// const proxiedRequest = request.defaults({ proxy: "http://127.0.0.1:8899" });
+const proxiedRequest = request;
 
 function requestData(uri: string): Promise<string> {
   return new Promise<string>((resolve, reject) => {
@@ -26,9 +27,9 @@ function requestData(uri: string): Promise<string> {
   });
 }
 
-async function requestJson(uri: string): Promise<object> {
+async function requestJson<T>(uri: string): Promise<T> {
   const data = await requestData(uri);
-  return JSON.parse(data);
+  return JSON.parse(data) as T;
 }
 
 function htmlToDOM(html: string): Document {

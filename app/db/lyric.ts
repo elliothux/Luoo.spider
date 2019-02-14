@@ -11,13 +11,13 @@ interface BaseLrc {
     name: string;
     artist: string;
     album?: string;
-    lrc: string;
+    lyric: string;
     type: LrcType
 }
 
 interface VolTrackLrc extends BaseLrc {
     id: number,
-    vol: number,
+    volId: number,
 }
 
 interface SingleLrc extends BaseLrc {
@@ -50,6 +50,10 @@ async function saveLyric(lrc: Lrc) {
 
 
 export {
+    LrcType,
+    VolTrackLrc,
+    SingleLrc,
+    ArticleTrackLrc,
     isLyricExist,
     saveLyric
 }
