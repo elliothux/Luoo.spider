@@ -9,10 +9,10 @@ import { getAverageColor as getAverageColorFromPath } from "./color";
 
 const proxiedRequest = request.defaults({ proxy: "http://127.0.0.1:8899" });
 
-function requestHTML(uri: string): Promise<string> {
+function requestData(uri: string): Promise<string> {
   return new Promise<string>((resolve, reject) => {
     const options = {
-      uri,
+      uri: encodeURI(uri),
       headers: {
         "User-Agent": randomUA()
       }
@@ -26,6 +26,11 @@ function requestHTML(uri: string): Promise<string> {
   });
 }
 
+async function requestJson(uri: string): Promise<object> {
+  const data = await requestData(uri);
+  return JSON.parse(data);
+}
+
 function htmlToDOM(html: string): Document {
   const {
     window: { document }
@@ -36,7 +41,7 @@ function htmlToDOM(html: string): Document {
 
 async function requestHTMLDOM(url: string): Promise<Document> {
   try {
-    const html = await requestHTML(url);
+    const html = await requestData(url);
     return htmlToDOM(html);
   } catch (e) {
     console.error("Request HTML failed: ", e);
@@ -155,6 +160,8 @@ function formatDesc(desc: string): string {
 }
 
 export {
+  requestData,
+  requestJson,
   requestHTMLDOM,
   getVolPageURL,
   getVolListPageURL,

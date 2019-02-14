@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/db" />
+      <excludeFolder url="file://$MODULE_DIR$/netease-api" />
     </content>
     <orderEntry type="jdk" jdkName="Pipenv (Luoo.Spider)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
