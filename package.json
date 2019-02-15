@@ -12,21 +12,21 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@types/jsdom": "^12.2.1",
-    "@types/mongodb": "^3.1.18",
-    "@types/puppeteer": "^1.11.2",
-    "@types/ramda": "^0.25.46",
-    "@types/request": "^2.48.1",
     "fast-average-color": "^4.3.0",
     "image-average-color": "^1.0.0",
     "jsdom": "^13.1.0",
     "mongodb": "^3.1.10",
     "puppeteer": "^1.11.0",
     "ramda": "^0.26.1",
-    "random-useragent": "^0.3.1"
+    "random-useragent": "^0.3.1",
+    "string-similarity": "^3.0.0"
   },
   "devDependencies": {
-    "@types/string-similarity": "^3.0.0",
-    "string-similarity": "^3.0.0"
+    "@types/jsdom": "^12.2.1",
+    "@types/mongodb": "^3.1.18",
+    "@types/puppeteer": "^1.11.2",
+    "@types/ramda": "^0.25.46",
+    "@types/request": "^2.48.1",
+    "@types/string-similarity": "^3.0.0"
   }
 }

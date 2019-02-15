@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@coolaj86/urequest@^1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@coolaj86/urequest/-/urequest-1.3.6.tgz#e962d62000d7786a3920e5ef2c863223353b2e7f"
+
 "@types/bson@*":
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/@types/bson/-/bson-1.0.11.tgz#c95ad69bb0b3f5c33b4bb6cc86d86cafb273335c"
@@ -25,12 +29,6 @@
     "@types/node" "*"
     "@types/tough-cookie" "*"
     parse5 "^4.0.0"
-
-"@types/mkdirp@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-0.5.2.tgz#503aacfe5cc2703d5484326b1b27efa67a339c1f"
-  dependencies:
-    "@types/node" "*"
 
 "@types/mongodb@^3.1.18":
   version "3.1.18"
@@ -61,6 +59,10 @@
     "@types/form-data" "*"
     "@types/node" "*"
     "@types/tough-cookie" "*"
+
+"@types/string-similarity@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/string-similarity/-/string-similarity-3.0.0.tgz#12b655f1aab0156049657a4e9287caf3e6718d93"
 
 "@types/tough-cookie@*":
   version "2.3.4"
@@ -245,12 +247,6 @@ domexception@^1.0.1:
   resolved "https://registry.yarnpkg.com/domexception/-/domexception-1.0.1.tgz#937442644ca6a31261ef36e3ec677fe805582c90"
   dependencies:
     webidl-conversions "^4.0.2"
-
-download-file@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/download-file/-/download-file-0.1.5.tgz#ca50ba64d9094b0c8702ef9fff92d2189e141117"
-  dependencies:
-    mkdirp "^0.5.0"
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
@@ -546,7 +542,7 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1:
+mkdirp@0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
@@ -821,9 +817,19 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
+ssl-root-cas@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/ssl-root-cas/-/ssl-root-cas-1.3.1.tgz#6b0566f7de4f0e6be99fbd93dbfbe5c7ab33b949"
+  dependencies:
+    "@coolaj86/urequest" "^1.3.6"
+
 stealthy-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
+
+string-similarity@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/string-similarity/-/string-similarity-3.0.0.tgz#07b0bc69fae200ad88ceef4983878d03793847c7"
 
 string_decoder@~1.1.1:
   version "1.1.1"
