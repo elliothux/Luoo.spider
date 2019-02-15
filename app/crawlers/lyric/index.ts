@@ -1,9 +1,17 @@
 import { compareTwoStrings } from "string-similarity";
-import {requestData, requestJson, sleep} from "../../utils";
+import { requestData, requestJson, sleep } from "../../utils";
 import { getVolCollection, VolInfo } from "../../db/vol";
-import {ArticleTrackLrc, isLyricExist, LrcType, saveLyric, SingleLrc, VolTrackLrc} from "../../db/lyric";
-import {Article, getArticleCollection} from "../../db/article";
-import {getSingleCollection, Single} from "../../db/single";
+import {
+  ArticleTrackLrc,
+  isLyricExist,
+  LrcType,
+  saveLyric,
+  SingleLrc,
+  VolTrackLrc
+} from "../../db/lyric";
+import { Article, getArticleCollection } from "../../db/article";
+import { getSingleCollection, Single } from "../../db/single";
+
 
 interface Params {
   name: string;
@@ -15,6 +23,7 @@ interface GecimiResponse {
   count: number;
   result: GecimiResultItem[];
 }
+
 interface GecimiResultItem {
   aid: number;
   artist_id: number;
@@ -22,6 +31,7 @@ interface GecimiResultItem {
   sid: number;
   song: number;
 }
+
 async function getLyricFromGecimi(params: Params): Promise<string | null> {
   const uri = `http://gecimi.com/api/lyric/${params.name}/${params.artist}`;
   const response = await requestJson<GecimiResponse>(uri);
@@ -31,6 +41,7 @@ async function getLyricFromGecimi(params: Params): Promise<string | null> {
   const [{ lrc }] = response.result;
   return requestData(lrc);
 }
+
 
 interface BzqllResponse<T> {
   result: string;
@@ -49,6 +60,7 @@ interface NetEaseResultItem {
 }
 
 type NetEaseResponse = BzqllResponse<NetEaseResultItem[]>;
+
 async function getLyricFromNetEase(params: Params): Promise<string | null> {
   const { name, artist } = params;
   const uri = `https://api.bzqll.com/music/netease/search?key=579621905&s=${name}&type=song&limit=100&offset=0`;
@@ -76,11 +88,9 @@ async function getLyricFromNetEase(params: Params): Promise<string | null> {
 function isLrcValid(lrc: string): boolean {
   return !/暂无歌词/.test(lrc);
 }
+
 async function getLyric(info: Params): Promise<string | null> {
-  const methods = [
-    getLyricFromNetEase,
-    getLyricFromGecimi
-  ];
+  const methods = [getLyricFromNetEase, getLyricFromGecimi];
 
   let lrc = null;
 
@@ -95,7 +105,7 @@ async function getLyric(info: Params): Promise<string | null> {
         lrc = response;
       }
     } catch (e) {
-      console.error('error: ', e);
+      console.error("error: ", e);
     }
   }
 
