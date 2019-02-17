@@ -12,7 +12,6 @@ import {
 import { Article, getArticleCollection } from "../../db/article";
 import { getSingleCollection, Single } from "../../db/single";
 
-
 interface Params {
   name: string;
   artist: string;
@@ -41,7 +40,6 @@ async function getLyricFromGecimi(params: Params): Promise<string | null> {
   const [{ lrc }] = response.result;
   return requestData(lrc);
 }
-
 
 interface BzqllResponse<T> {
   result: string;
@@ -118,6 +116,7 @@ async function getVolTrackLyrics() {
   for (let vol of vols) {
     const { tracks, id: volId } = vol;
     for (let track of tracks) {
+      if (!track) continue;
       const { name, artist, album, id } = track;
       if (await isLyricExist(id, LrcType.VolTrackLrc)) {
         continue;
