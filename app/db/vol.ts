@@ -1,6 +1,7 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import config from "../../config";
 import { getDB } from "./utils";
+import {formatDesc} from "../utils";
 
 interface VolTask {
   id: number;
@@ -72,6 +73,21 @@ async function saveVol(vol: VolInfo) {
   const collection = await getVolCollection();
   return collection.insertOne(vol);
 }
+
+// (async () => {
+//   const collection = await getVolCollection();
+//   const vols = await collection.find({}).toArray() as VolInfo[];
+//   for (let vol of vols) {
+//     const { desc } = vol;
+//     const f = formatDesc(desc);
+//     if (f !== desc) {
+//       console.log('replace: ', vol.title);
+//       await collection.updateOne({ id: vol.id }, {
+//         $set: { desc:f }
+//       });
+//     }
+//   }
+// })().then(console.log).catch(console.error);
 
 export {
   VolInfo,

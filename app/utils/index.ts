@@ -156,9 +156,10 @@ function onExit(exitHandler: () => any) {
 
 function formatDesc(desc: string): string {
   return desc
-    .replace(/<script>.*<\/script>/, "")
-    .replace(/style="*?"/g, "")
-    .replace(/href="*?"/g, "")
+    .replace(/<script>.+<\/script>/, "")
+    .replace(/style=".+"/g, "")
+    .replace(/href=".+"/g, "")
+    .replace(/\(function.+<\/script>/g, "")
     .trim();
 }
 
