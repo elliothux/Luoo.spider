@@ -118,7 +118,7 @@ async function getTrackInfoFromNode(
 
   return {
     id,
-    vol,
+    volId: volTask.id,
     name,
     artist,
     album,

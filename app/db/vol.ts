@@ -1,7 +1,7 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import config from "../../config";
 import { getDB } from "./utils";
-import {formatDesc} from "../utils";
+import { formatDesc } from "../utils";
 
 interface VolTask {
   id: number;
@@ -29,7 +29,7 @@ interface VolInfo {
 
 export interface VolTrack {
   id: number;
-  vol: number;
+  volId: number;
   name: string;
   artist: string;
   album: string;
@@ -76,18 +76,26 @@ async function saveVol(vol: VolInfo) {
 
 // (async () => {
 //   const collection = await getVolCollection();
-//   const vols = await collection.find({}).toArray() as VolInfo[];
+//   const vols = (await collection.find({}).toArray()) as VolInfo[];
 //   for (let vol of vols) {
-//     const { desc } = vol;
-//     const f = formatDesc(desc);
-//     if (f !== desc) {
-//       console.log('replace: ', vol.title);
-//       await collection.updateOne({ id: vol.id }, {
-//         $set: { desc:f }
-//       });
-//     }
+//     const { tracks } = vol;
+//     await collection.updateOne(
+//       { id: vol.id },
+//       {
+//         $set: {
+//           tracks: tracks.filter(i => !!i).map(track => {
+//             delete track.vol;
+//             track.volId = vol.id;
+//             return track;
+//           })
+//         }
+//       }
+//     );
+//     console.log(`set ${vol.vol} ${vol.title}`);
 //   }
-// })().then(console.log).catch(console.error);
+// })()
+//   .then(console.log)
+//   .catch(console.error);
 
 export {
   VolInfo,
