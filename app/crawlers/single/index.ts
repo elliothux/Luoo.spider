@@ -118,7 +118,9 @@ interface MetaInfo {
 
 function getInfoFromMeta(meta: HTMLElement): MetaInfo {
   const id = parseInt(meta.querySelector("a.title").getAttribute("data-id"));
-  const fromId = parseInt(meta.querySelector('div.sns > a.btn-action-share').getAttribute('data-id'));
+  const fromId = parseInt(
+    meta.querySelector("div.sns > a.btn-action-share").getAttribute("data-id")
+  );
   const name = meta.querySelector("a.title").childNodes[0].nodeValue.trim();
   const artist = meta.querySelector("p.performer").innerHTML.trim();
   const desc = formatDesc(meta.querySelector("p.remark").innerHTML);
@@ -127,6 +129,7 @@ function getInfoFromMeta(meta: HTMLElement): MetaInfo {
     .replace("推荐人", "")
     .replace("：", "")
     .replace(":", "")
+    .replace("-", "")
     .split("・")
     .map(i => i.trim());
   const date = parseInt(rawDate.replace(/-/g, ""));
