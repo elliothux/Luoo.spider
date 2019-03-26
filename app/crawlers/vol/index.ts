@@ -57,10 +57,10 @@ async function getVolInfo(volTask: VolTask): Promise<VolInfo> {
     doc.querySelectorAll(".vol-tracklist li.track-item")
   );
   const tracks = await Promise.all<VolTrack>(
-      R.map(
-        async trackNode => await getTrackInfoFromNode(trackNode, volTask),
-        tracksNode
-      )
+    R.map(
+      async trackNode => await getTrackInfoFromNode(trackNode, volTask),
+      tracksNode
+    )
   );
 
   return {

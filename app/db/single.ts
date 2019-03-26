@@ -3,6 +3,7 @@ import { getDB } from "./utils";
 
 interface Single {
   id: number;
+  fromId: number;
   name: string;
   artist: string;
   cover: string;

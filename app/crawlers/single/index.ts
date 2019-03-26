@@ -1,9 +1,7 @@
 import * as R from "ramda";
 import {
   requestHTMLDOM,
-  getVolIdFromURL,
   getAverageColor,
-  handleVolImgSrc,
   sleep,
   handleSingleImgSrc,
   formatDesc
@@ -31,9 +29,16 @@ async function getSinglesFromPage(page: number): Promise<Single[]> {
 async function getBannerSingle(doc: Document): Promise<Single> {
   const banner = doc.querySelector(".musician-banner");
   const meta = banner.querySelector("div.meta") as HTMLElement;
-  const { id, name, artist, desc, recommender, date, url } = getInfoFromMeta(
-    meta
-  );
+  const {
+    id,
+    fromId,
+    name,
+    artist,
+    desc,
+    recommender,
+    date,
+    url
+  } = getInfoFromMeta(meta);
   const cover = handleSingleImgSrc(
     banner
       .querySelector("img.cover")
@@ -43,6 +48,7 @@ async function getBannerSingle(doc: Document): Promise<Single> {
   const color = await getAverageColor(cover);
   return {
     id,
+    fromId,
     name,
     artist,
     cover,
@@ -67,9 +73,16 @@ async function getOtherSingles(doc: Document): Promise<Single[]> {
 
 async function getSingleFromElement(element: HTMLElement): Promise<Single> {
   const meta = element.querySelector(".musician-wrapper") as HTMLElement;
-  const { id, name, artist, desc, recommender, date, url } = getInfoFromMeta(
-    meta
-  );
+  const {
+    id,
+    fromId,
+    name,
+    artist,
+    desc,
+    recommender,
+    date,
+    url
+  } = getInfoFromMeta(meta);
   const cover = handleSingleImgSrc(
     element
       .querySelector("img.cover")
@@ -80,6 +93,7 @@ async function getSingleFromElement(element: HTMLElement): Promise<Single> {
 
   return {
     id,
+    fromId,
     name,
     artist,
     cover,
@@ -93,6 +107,7 @@ async function getSingleFromElement(element: HTMLElement): Promise<Single> {
 
 interface MetaInfo {
   id: number;
+  fromId: number;
   name: string;
   artist: string;
   desc: string;
@@ -103,6 +118,7 @@ interface MetaInfo {
 
 function getInfoFromMeta(meta: HTMLElement): MetaInfo {
   const id = parseInt(meta.querySelector("a.title").getAttribute("data-id"));
+  const fromId = parseInt(meta.querySelector('div.sns > a.btn-action-share').getAttribute('data-id'));
   const name = meta.querySelector("a.title").childNodes[0].nodeValue.trim();
   const artist = meta.querySelector("p.performer").innerHTML.trim();
   const desc = formatDesc(meta.querySelector("p.remark").innerHTML);
@@ -117,6 +133,7 @@ function getInfoFromMeta(meta: HTMLElement): MetaInfo {
   const url = `http://mp3-cdn2.luoo.net/low/chinese/${date}.mp3`;
   return {
     id,
+    fromId,
     name,
     artist,
     desc,
