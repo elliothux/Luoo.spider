@@ -1,5 +1,5 @@
 # Luoo
-### 为 Luoo.qy 提供后端 API, 基于 Python、Node.js、Koa、MongoDB 等构建
+### 为 Luoo.qy 提供数据
 
 👨‍💻‍ V2.0 开发中，敬请期待。
 
